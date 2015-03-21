@@ -1,0 +1,7 @@
+create route for creating and retriving locations
+
+establish relationship between rivys and locations
+
+correctly format the address of locations 
+
+get the longitude and latitude of a location upon a post request, as well as verifying the validity of the address

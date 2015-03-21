@@ -1,0 +1,4 @@
+params -> how does mongoose know when to parse the id
+
+mongoose error handling
+

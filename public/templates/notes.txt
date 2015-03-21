@@ -1,0 +1,6 @@
+HomeFeed -> home page, lists all the location and (most recent rivys for the given coordinates and radius)
+
+RivyFeed -> clicking on a locations displays all the rivys for that one location, on the map, whichever one viewing will change color
+	Back button on the left hand takes back to homefeed.
+
+RivyForm -> clicking on the 

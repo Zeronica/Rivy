@@ -1,0 +1,20 @@
+// post a rivy with location data
+curl --data 'title=title1&body=rivy1&address=google&lng=101&lat=102' http://localhost:3000/rivys
+
+// post a rivy with location_id
+curl --data 'title=title1&body=rivy1&location=550b8e9d2cb3936919b483ee' http://localhost:3000/rivys
+
+// upvote a rivy
+curl --data '' http://localhost:3000/rivys/550b8e9d2cb3936919b483ef/upvote
+
+// post a comment to a rivy
+curl --data 'body=fuckoff&author=jack' http://localhost:3000/rivys/550877571421a49f1a7bb556/comments
+curl --data 'body=fuckoff&author=jack' http://localhost:3000/rivys/550b8e9d2cb3936919b483ef/comments
+
+// upvote a comment
+curl -X PUT http://localhost:3000/rivys/54fa5ea2bb0881b15c316044/comments/54fa5ec5bb0881b15c316045/upvote
+
+54fe5dec9622160753eaae88
+
+curl POST http://localhost:3000/rivys/54fd253332ce196b0ef149eb/comments/54fe5dec9622160753eaae88/upvote
+
