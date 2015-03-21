@@ -10,7 +10,7 @@ require('./models/Rivys');
 require('./models/Comments');
 require('./models/Locations');
 
-mongoose.connect('mongodb://localhost/rivy');
+mongoose.connect('mongodb://heroku_app35083735:j0fvddj7vk4ed6fj6p7b42ib29@ds039860.mongolab.com:39860/heroku_app35083735/rivy');
 
 var routes = require('./routes/index');
 var rivys = require('./routes/rivys');
