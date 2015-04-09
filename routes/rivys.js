@@ -89,11 +89,9 @@ router.get('/filter/:location', function(req, res, next) {
 /*POST a new rivy*/
 /*
 requires
-  location_id 
-  OR
-  location_address
-  location_lng
-  location_lat
+location_id 
+OR 
+address, lng, lat
 */
 router.post('/', function(req, res, next) {
 	// check, the body should have location object, 
@@ -156,7 +154,6 @@ router.post('/:rivy/comments/:comment/upvote', function(req, res, next) {
 
 /*POST a comment*/
 router.post('/:rivy/comments', function(req, res, next) {
-
   var comment = new Comment(req.body);
   comment.rivy = req.rivy;
 
