@@ -4,7 +4,8 @@ var CommentSchema = new mongoose.Schema({
   body: {type: String, required: true},  
   author: String,
   upvotes: {type: Number, default: 0},
-  rivy: { type: mongoose.Schema.Types.ObjectId, ref: 'Rivy'}
+  rivy: { type: mongoose.Schema.Types.ObjectId, ref: 'Rivy'},
+  time : { type : Date, default: Date.now }
 });
 
 CommentSchema.methods.upvote = function(cb) {

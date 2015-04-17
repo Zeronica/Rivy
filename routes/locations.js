@@ -24,6 +24,18 @@ var computeCoordBounds = function(lat, lon, d) {
 	return o;
 };
 
+router.param('location', function(req, res, next, id) {
+  var query = Location.findById(id);
+
+  query.exec(function (err, location) {
+	if (err) { return next(err); }
+	if (!location) { return next(new Error('can\'t find location')); }
+
+	req.location = location;
+	return next();
+  });
+});
+
 // GET a list of all locations
 /*needs to specify a center longitude and latitude,
 as well as a radius*/
@@ -49,6 +61,11 @@ router.get('/:lat/:lng/:distance', function(req, res, next) {
 			}
 			res.json(locations);
 		});
+});
+
+// GET a single location given an id
+router.get('/:location', function(req, res, next) {
+	res.json(req.location);
 });
 
 module.exports = router;

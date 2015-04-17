@@ -9,6 +9,10 @@ var Location = mongoose.model('Location');
 //=========================================================
 // helper functions
 
+// fixed varibale, limit on number of rivys returned at any
+// request
+var RIVY_LIMIT = 20;
+
 // given raw location data, attempts to find an exact
 // match in the database, if not creates a new entry
 // either way returns a location_id
@@ -75,7 +79,7 @@ router.get('/', function(req, res, next) {
   Rivy.find({}, function(err, rivys) {
 	if (err){return next(err);}
 	res.json(rivys);
-  })
+  }).limit(RIVY_LIMIT);
 })
 
 /*GET list of rivys with specified location*/
@@ -83,7 +87,7 @@ router.get('/filter/:location', function(req, res, next) {
 	Rivy.find({location: req.location}, function(err, rivys){
 		if (err){return next(err);}
 		res.json(rivys);
-	});
+	}).limit(RIVY_LIMIT);
 });
 
 /*POST a new rivy*/
