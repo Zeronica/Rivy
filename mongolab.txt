@@ -1,0 +1,25 @@
+Dear MongoLab user,
+
+As per your request, here are the usernames and accounts associated with your email address:
+
+         Account:  heroku_app35083735
+         Username: heroku_app35083735
+
+         Account:  heroku_app35562572
+         Username: heroku_app35562572
+
+To log in, go to http://mongolab.com/login and enter the username and password that was used to create the account.
+
+If you have any questions or comments please email us anytime at support@mongolab.com.
+
+Thanks!
+
+The MongoLab Team
+http://mongolab.com
+twitter: @mongolab
+
+=================================================
+
+mongo ds039860.mongolab.com:39860/heroku_app35083735 -u Zeronica -p
+
+rivyapp

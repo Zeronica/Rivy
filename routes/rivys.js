@@ -84,11 +84,36 @@ router.get('/', function(req, res, next) {
 
 /*GET list of rivys with specified location*/
 router.get('/filter/:location', function(req, res, next) {
-	Rivy.find({location: req.location}, function(err, rivys){
+	var options = {
+		"limit" : RIVY_LIMIT
+	}
+
+	Rivy.find({location: req.location}).limit(RIVY_LIMIT).exec(function(err, rivys){
 		if (err){return next(err);}
 		res.json(rivys);
-	}).limit(RIVY_LIMIT);
+	})
 });
+
+router.get('/filter/newest/:location', function(req, res, next) {
+	Rivy.find({location: req.location}).sort({'time': -1}).limit(RIVY_LIMIT).exec(function(err, rivys){
+		if (err){return next(err);};
+		res.json(rivys);
+	});
+});
+
+router.get('/filter/hottest/:location', function(req, res, next) {
+	// var options = {
+	// 	"limit" : RIVY_LIMIT,
+	// 	"sort" : [['upvotes','desc']]
+	// }
+
+	Rivy.find({location: req.location}).sort({'upvotes': -1}).limit(RIVY_LIMIT).exec(function(err, rivys){
+		if (err){return next(err);}
+		res.json(rivys);
+	});
+});
+
+/*GET list of rivys with specified location, ordered by newest */
 
 /*POST a new rivy*/
 /*
