@@ -1,7 +1,10 @@
-create route for creating and retriving locations
+A. build home page account
+	add home template, with dummy search bar and button on the footer
+	nav stack
 
-establish relationship between rivys and locations
+B. the tab nav bar should have home/account
+	if user is logged in, the account view should render logout page
+	if not, render the login form
+		add user auth system in the backend
 
-correctly format the address of locations 
-
-get the longitude and latitude of a location upon a post request, as well as verifying the validity of the address
+C. add re

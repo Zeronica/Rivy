@@ -18,3 +18,16 @@ curl -X PUT http://localhost:3000/rivys/54fa5ea2bb0881b15c316044/comments/54fa5e
 
 curl POST http://localhost:3000/rivys/54fd253332ce196b0ef149eb/comments/54fe5dec9622160753eaae88/upvote
 
+//register a user
+curl --data 'email=dummy@gmail.com&password=password' http://localhost:3000/signup
+
+// get user token
+curl --data 'email=dummy@gmail.com&password=password' http://localhost:3000/auth
+
+// deregister user
+curl --data 'email=dummy@gmail.com&password=password' http://localhost:3000/deregister
+
+
+
+
+
