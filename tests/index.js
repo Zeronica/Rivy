@@ -33,14 +33,14 @@ describe('user login', function(){
 		})
 		it('should authorize viewing me request', function(done){
 			superagent
-				.post(urlPath + '/auth')
+				.post(urlPath + '/login')
 				.set('Content-Type', 'application/json')
 				.send('{"email": "dummy@gmail.com", "password": "password"}')
 				.end(function(res){
 					expect(res.body.token).not.to.be(undefined);
 					superagent
 						.get(urlPath + '/me')
-						.set('authorization', res.body.token)
+						.set('x-access-token', res.body.token)
 						.end(function(res){
 							expect(res.status).to.equal(200);
 							expect(res.body.data).not.to.be(undefined);

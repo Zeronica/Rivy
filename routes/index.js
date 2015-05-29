@@ -2,18 +2,50 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-var jwt = require("jsonwebtoken");
+var jwt = require("jwt-simple");
 var User = mongoose.model('User');
 
 //testing purposes obviously
 var jwt_secret = "ABC";
+
+function respondWithError(res, err) {
+	res.json({
+		type: false,
+		data: "Error occured: " + err
+	});
+}
+
+function saveUser(email, password, callback) {
+	var userModel = new User();
+	userModel.email = email;
+	userModel.password = password;
+	userModel.save(callback);
+}
+
+function genToken(user) {
+	var expires = expiresIn(7);
+	var token = jwt.encode({
+		exp: expires
+	}, require('../config/secret')());
+
+	return {
+		token: token,
+		expires: expires,
+		user: user
+	};
+}
+
+function expiresIn(numDays) {
+	var dateObj = new Date();
+	return dateObj.setDate(dateObj.getDate() + numDays);
+}
 
 // render dummy view
 router.get('/', function(req, res, next) {
 	res.render('dummy.ejs');
 });
 
-router.post('/auth', function(req, res){
+router.post('/login', function(req, res){
 	User.findOne({email: req.body.email, password: req.body.password}, function(err, user){
 		if (err) {
 			res.json({
@@ -22,11 +54,7 @@ router.post('/auth', function(req, res){
 			});
 		} else {
 			if (user) {
-				res.json({
-					type: true,
-					data: user,
-					token: user.token
-				});
+				res.json(genToken(user));
 			} else {
 				res.json({
 					type: false,
@@ -38,6 +66,7 @@ router.post('/auth', function(req, res){
 });
 
 router.post('/signup', function(req, res){
+	//	console.log(typeof req.body.email);
 	User.findOne({email: req.body.email, password: req.body.password}, function(err, user){
 		if (err) {
 			res.json({
@@ -51,20 +80,15 @@ router.post('/signup', function(req, res){
 					data: "User already exists!"
 				});
 			} else {
-				var userModel = new User();
-				userModel.email = req.body.email;
-				userModel.password = req.body.password;
-				userModel.save(function(err, user){
-					user.token = jwt.sign(user, jwt_secret);
-					user.save(function(err, user1){
-						res.json({
-							type: true,
-							data: user1,
-							token: user1.token
-						});
-					});
+				// register the new user
+				saveUser(req.body.email, req.body.password, function(err, user){
+					if (err) {
+						respondWithError(res, err);
+					} else {
+						res.json(genToken(user));
+					}
 				});
-			}
+			};
 		}
 	});
 });
@@ -103,22 +127,57 @@ router.post('/deregister', function(req, res){
 });
 
 function ensureAuthorized(req, res, next) {
-	var bearerToken;
-	var bearerHeader = req.headers["authorization"];
-	if (typeof bearerHeader !== 'undefined') {
-		var bearer = bearerHeader.split(" ");
-		bearerToken = bearer[0];
-		jwt.verify(bearerToken, jwt_secret, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				req.token = bearerToken;
-				next();
-			}
-		});
-	} else {
-		res.send(403);
-	}
+	// var bearerToken;
+	// var bearerHeader = req.headers["authorization"];
+	// if (typeof bearerHeader !== 'undefined') {
+	// 	var bearer = bearerHeader.split(" ");
+	// 	bearerToken = bearer[0];
+	// 	jwt.verify(bearerToken, jwt_secret, function(err) {
+	// 		if (err) {
+	// 			console.log(err);
+	// 		} else {
+	// 			req.token = bearerToken;
+	// 			next();
+	// 		}
+	// 	});
+	// } else {
+	// 	res.send(403);
+	// }
+
+	var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+  	// below to valid username
+  	//var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
+
+  	if (token) {
+  		try {
+  			var decoded = jwt.decode(token, require('../config/secret.js')());
+  			// if expired
+  			if (decoded.exp <= Date.now()) {
+  				res.json({
+  					"status": 400,
+  					"message": "Token Expired"
+  				});
+  				return;
+  			} else {
+  				next();
+  			}
+  		} catch(err) {
+  			res.status(500);
+  			res.json({
+  				"status": 500,
+  				"message": "Oops something went wrong",
+  				"error": err
+  			});
+  			return;
+  		}
+  	} else {
+  		res.status(401);
+  		res.json({
+  			"status": 401,
+  			"message": "Invalid token or key"
+  		})
+  		return;
+  	}
 }
 
 router.get('/me', ensureAuthorized, function(req, res) {
