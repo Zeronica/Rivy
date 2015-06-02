@@ -17,7 +17,7 @@ function respondWithError(res, err) {
 
 function saveUser(email, password, callback) {
 	var userModel = new User();
-	userModel.email = email;
+	userModel.username = email;
 	userModel.password = password;
 	userModel.save(callback);
 }
@@ -46,19 +46,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', function(req, res){
-	User.findOne({email: req.body.email, password: req.body.password}, function(err, user){
+	User.findOne({username: req.body.username, password: req.body.password}, function(err, user){
 		if (err) {
-			res.json({
-				type: false,
-				data: "Error occured: " + err
-			});
+			respondWithError(res, err);
 		} else {
 			if (user) {
 				res.json(genToken(user));
 			} else {
+				res.status(401);
 				res.json({
+					status: 401,
 					type: false,
-					data: "Incorrect email/password"
+					data: "Incorrect username/password"
 				});
 			}
 		}
@@ -66,8 +65,8 @@ router.post('/login', function(req, res){
 });
 
 router.post('/signup', function(req, res){
-	//	console.log(typeof req.body.email);
-	User.findOne({email: req.body.email, password: req.body.password}, function(err, user){
+	//	console.log(typeof req.body.username);
+	User.findOne({username: req.body.username, password: req.body.password}, function(err, user){
 		if (err) {
 			res.json({
 				type: false,
@@ -75,13 +74,15 @@ router.post('/signup', function(req, res){
 			});
 		} else {
 			if (user) {
+				res.status(401);
 				res.json({
+					status: 401,
 					type: false,
 					data: "User already exists!"
 				});
 			} else {
 				// register the new user
-				saveUser(req.body.email, req.body.password, function(err, user){
+				saveUser(req.body.username, req.body.password, function(err, user){
 					if (err) {
 						respondWithError(res, err);
 					} else {
@@ -95,7 +96,7 @@ router.post('/signup', function(req, res){
 
 // testing purposes only
 router.post('/deregister', function(req, res){
-	User.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
+	User.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
 		if (err) {
 			res.json({
 				type: false,
@@ -117,7 +118,9 @@ router.post('/deregister', function(req, res){
 					}
 				})
 			} else {
+				res.status(401);
 				res.json({
+					status: 401,
 					type: false,
 					data: "user does not exist!"
 				})

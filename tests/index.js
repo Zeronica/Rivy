@@ -17,12 +17,12 @@ describe('user login', function(){
 			superagent
 				.post(urlPath + '/deregister')
 				.set('Content-Type', 'application/json')
-				.send('{"email": "dummy@gmail.com", "password": "password"}')
+				.send('{"username": "dummy@gmail.com", "password": "password"}')
 				.end(function(res){
 					superagent
 						.post(urlPath + '/signup')
 						.set('Content-Type', 'application/json')
-						.send('{"email": "dummy@gmail.com", "password": "password"}')
+						.send('{"username": "dummy@gmail.com", "password": "password"}')
 						.end(function(res){
 							expect(res.status).to.equal(200);
 							expect(res.body.token).not.to.be(undefined);
@@ -35,7 +35,7 @@ describe('user login', function(){
 			superagent
 				.post(urlPath + '/login')
 				.set('Content-Type', 'application/json')
-				.send('{"email": "dummy@gmail.com", "password": "password"}')
+				.send('{"username": "dummy@gmail.com", "password": "password"}')
 				.end(function(res){
 					expect(res.body.token).not.to.be(undefined);
 					superagent
@@ -44,11 +44,23 @@ describe('user login', function(){
 						.end(function(res){
 							expect(res.status).to.equal(200);
 							expect(res.body.data).not.to.be(undefined);
-							expect(res.body.data.email).to.equal("dummy@gmail.com");
+							expect(res.body.data.username).to.equal("dummy@gmail.com");
 							done();
 						})
 				})
+		})
+		it('should not authorize incorrect username', function(done){
+			superagent
+				.post(urlPath + '/login')
+				.set('Content-Type', 'application/json')
+				.send('{"username": "trolllullul@gmail.com", "password": "password"}')
+				.end(function(res){
+					console.log()
+					expect(res.status).to.equal(401);
+					done();
+				})
 		});
+
 	});
 
 	// after(function() {
