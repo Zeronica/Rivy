@@ -33,7 +33,7 @@ router.get('/api/v1/rivys/:location', rivys.getAllAtLocation);
 router.get('/api/v1/rivy/:rivy', rivys.getOne);
 router.post('/api/v1/rivys', rivys.createRivy);
 router.get('/api/v1/rivy/:rivy/upvote', rivys.upvoteRivy);
-router.get('/api/v1/rivy/:rivy/comments/:comment/upvote', rivys.upvoteRivyComment);
+router.get('/api/v1/:rivy/comments/:comment/upvote', rivys.upvoteRivyComment);
 router.post('/api/v1/:rivy/comments', rivys.createRivyComment);
 
 // locations
