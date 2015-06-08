@@ -30,6 +30,10 @@ var locations = {
 		});
 	},
 
+	getOne: function(req, res, next) {
+		res.json(req.location);
+	},
+
 	getAllWithinBounds: function(req, res, next) {
 		o = computeCoordBounds(Number(req.params.lat), Number(req.params.lng), Number(req.params.distance));
 		console.log(o);

@@ -27,6 +27,7 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.all('/*', function(req, res, next) {
@@ -46,12 +47,12 @@ app.all('/api/v1/*', [require('./middlewares/validateRequest')]);
 
 app.use('/', require('./routes'));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // error handlers
 
@@ -61,9 +62,6 @@ app.use(function(req, res, next) {
 
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    console.log({message: err.message, error: err});
-    console.log(err.printStackTrace());
-
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
