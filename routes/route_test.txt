@@ -31,6 +31,25 @@ curl --data 'email=dummy@gmail.com&password=password' http://localhost:3000/dere
 curl http://localhost:3000/me
 
 
+// get locations within bounds
+curl http://localhost:3000/locations/37.86988067626953/-122.27053833007812/10
+
+
+2650 Haste St
+Berkeley, CA 94704
+37.86646395921707
+-122.25485689938068
+
+2400 Durant Ave, Berkeley, CA 
+37.86751605570316
+-122.26107962429523
+
+
+{ latmin: 37.86831106396377,
+  latmax: 37.87145028857529,
+  lngmin: -122.27213111034243,
+  lngmax: -122.26894554981382 }
+db.locations.find({ lng: {$lt: -122.26894554981382, $gt: -122.27213111034243}, lat: {$lt: 37.87145028857529, $gt: 37.86831106396377}})
 
 
 

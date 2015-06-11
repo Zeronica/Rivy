@@ -51,7 +51,6 @@ var rivys = {
 	createRivy: function(req, res, next) {
 		// check, the body should have location object, 
 		// with either the location_id, or a new address and longitude and latitude
-		console.log(req);
 		console.log(req.body);
 		if (!req.body.location && !(req.body.address && req.body.lng && req.body.lat)) {
 		  return next(new Error("if location_id is not provided, location_address, location_lng, location_lat must be provided"));
@@ -99,7 +98,7 @@ var rivys = {
 	},
 
 	upvoteRivy: function(req, res, next) {
-		req.rivy.upvote(function(err, rivy){
+		req.rivy.upvote(req.userID, function(err, rivy){
 			if (err) { return next(err); }
 
 			res.json(rivy);
@@ -107,7 +106,7 @@ var rivys = {
 	},
 
 	upvoteRivyComment: function(req, res, next) {
-		req.comment.upvote(function(err, comment){
+		req.comment.upvote(req.userID, function(err, comment){
 			if (err) { return next(err); }
 
 			res.json(comment);

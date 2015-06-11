@@ -6,6 +6,42 @@ var boot = require('../app').boot,
 
 var urlPath = 'http://localhost:' + port;
 
+describe('post 3 rivys of two locations and get those locations', function() {
+	it ('should post rivys', function(done) {
+		superagent
+			.post(urlPath + '/rivys')
+			.send({
+				address: "2650 Haste St Berkeley, CA 94704",
+				lat: "37.86646395921707",
+				lng: "-122.25485689938068",
+				title: "title1",
+				body: "lululululululul1"
+			})
+			.end(function(res) {
+				expect(res.status).to.equal(200);
+				superagent
+					.post(urlPath + '/rivys')
+					.send({
+						address: "2400 Durant Ave, Berkeley, CA",
+						lat: "37.86751605570316",
+						lng: "-122.26107962429523",
+						title: "title2",
+						body: "lululululululul2"
+					})
+					.end(function(res) { 
+						expect(res.status).to.equal(200);
+						superagent
+							.get(urlPath + '/locations/' + '37.86751605570316/-122.26107962429523/100')
+							.end(function(res) {
+								expect(res.status).to.equal(200);
+								console.log(res.body);
+								done();
+							})
+					})
+			})
+	})
+})
+
 describe('user login', function(){
 	// before(function() {
 	// 	boot();

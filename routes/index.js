@@ -23,9 +23,11 @@ router.param('location', preload.loadLocation);
 router.param('comment', preload.loadComment);
 
 // test routes without auth
-//router.post('/rivys', rivys.createRivy);
+// router.get('/rivys', rivys.getAll);
+router.post('/rivys', rivys.createRivy);
 //router.get('/location/:location', locations.getOne);
-router.get('/rivys/:location', rivys.getAllAtLocation);
+// router.get('/rivys/:location', rivys.getAllAtLocation);
+router.get('/locations/:lat/:lng/:distance', locations.getAllWithinBounds);
 
  // rivys and comments
 router.get('/api/v1/rivys', rivys.getAll);
@@ -38,7 +40,7 @@ router.post('/api/v1/:rivy/comments', rivys.createRivyComment);
 
 // locations
 router.get('/api/v1/locations', locations.getAll);
-router.get('/api/v1/:lat/:lng/:distance', locations.getAllWithinBounds);
+router.get('/api/v1/locations/:lat/:lng/:distance', locations.getAllWithinBounds);
 router.get('/api/v1/location/:location', locations.getOne);
 
 module.exports = router;

@@ -8,7 +8,7 @@ var RivySchema = new mongoose.Schema({
   	location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true}
 });
 
-RivySchema.methods.upvote = function(cb) {
+RivySchema.methods.upvote = function(userID, cb) {
   this.upvotes += 1;
   this.save(cb);
 };

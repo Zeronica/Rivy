@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Location = mongoose.model('Location');
 
+// units in km
 var computeCoordBounds = function(lat, lon, d) {
 	earthRad = 6371;
 	r = d/earthRad;
@@ -31,6 +32,7 @@ var locations = {
 	},
 
 	getOne: function(req, res, next) {
+		console.log(req.userID);
 		res.json(req.location);
 	},
 
