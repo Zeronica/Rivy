@@ -7,6 +7,11 @@ var rivys = require('./rivys.js');
 var locations = require('./locations.js');
 var preload = require('./preload.js');
  
+// main page
+router.get('/', function(req, res) {
+	res.render('index');
+})
+
 /*
  * Routes that can be accessed by any one
  */

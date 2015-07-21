@@ -58,10 +58,9 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-
-
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log(err.stack);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -84,7 +83,8 @@ var server = http.createServer(app);
 var boot = function () {
   server.listen(app.get('port'), function(){
     console.info('Express server listening on port ' + app.get('port'));
-}); }
+  });
+}
 var shutdown = function() {
   server.close();
 }
@@ -97,3 +97,4 @@ else {
   exports.shutdown = shutdown;
   exports.port = app.get('port');
 }
+

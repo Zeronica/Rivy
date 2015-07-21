@@ -2,12 +2,15 @@ var mongoose = require('mongoose');
 var Rivy = mongoose.model('Rivy');
 var Comment = mongoose.model('Comment');
 var Location = mongoose.model('Location');
+var CommentLike = mongoose.model('CommentLike');
 
 // given raw location data, attempts to find an exact
 // match in the database, if not creates a new entry
 // either way returns a location_id
-var processLocationData = function(data, cb) {
-	return Location.findOne(data, function(err, location) {
+var processLocationData = function(data, next, cb) {
+	console.log(data);
+
+	return Location.findOne({address: data.address}, function(err, location) {
 		// if location already exists
 		if (location) {
 			return cb(location);
@@ -23,6 +26,8 @@ var processLocationData = function(data, cb) {
 		});
 	});
 }
+
+// check whether the user has already upvoted. 
 
 var rivys = {
 
@@ -58,6 +63,7 @@ var rivys = {
 
 		saveRivy = function(location) {
 			req.body.location = location;
+			console.log(req.body);
 			rivy = new Rivy(req.body);
 
 			rivy.save(function(err, rivy){
@@ -70,7 +76,7 @@ var rivys = {
 		// get a location_id for this rivy
 		if (!req.body.location) {
 			data = {address: req.body.address, lng: req.body.lng, lat: req.body.lat};
-			processLocationData(data, saveRivy); 
+			processLocationData(data, next, saveRivy); 
 		} else {
 			Location.findById(req.body.location, function(err, location) {
 				if (!location) {
@@ -97,6 +103,41 @@ var rivys = {
 		});
 	},
 
+	upvoteRivyComment: function(req, res, next) {
+
+		var saveNewLikeCB = function(err, commentLike) {
+			if (err) { return next(err); }
+
+			console.log("dsafdsafdsafdsavsafda");
+			console.log(req.comment);
+			console.log(req.user);
+
+			req.comment.upvote(req.user, function(err, comment){
+				if (err) { return next(err); }
+
+				res.json(comment);
+			});
+		};
+
+		var checkForExistingLikeCB = function(err, like) {
+			if (err) { return next(err); }
+
+			if (!like) {
+				var commentLike = new CommentLike({user: req.user, comment: req.comment});
+				commentLike.save(saveNewLikeCB);
+			} else {
+				res.status(500);
+			      res.json({
+			        "status": 500,
+			        "message": "already liked"
+			      });
+			      return;			
+			}
+		};
+
+		CommentLike.findOne({user: req.user, comment: req.comment}, checkForExistingLikeCB);
+	},
+
 	upvoteRivy: function(req, res, next) {
 		req.rivy.upvote(req.userID, function(err, rivy){
 			if (err) { return next(err); }
@@ -104,14 +145,6 @@ var rivys = {
 			res.json(rivy);
 		});
 	},
-
-	upvoteRivyComment: function(req, res, next) {
-		req.comment.upvote(req.userID, function(err, comment){
-			if (err) { return next(err); }
-
-			res.json(comment);
-		});
-	}
 }
 
 module.exports = rivys;

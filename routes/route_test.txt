@@ -1,5 +1,5 @@
 // post a rivy with location data
-curl --data 'title=title1&body=rivy1&address=google&lng=101&lat=102' http://localhost:3000/rivys
+curl --data 'title=title1&body=rivy1&rating=7&address=google&lng=101&lat=102' http://localhost:3000/rivys
 
 // post a rivy with location_id
 curl --data 'title=title1&body=rivy1&location=550b8e9d2cb3936919b483ee' http://localhost:3000/rivys
@@ -50,6 +50,12 @@ Berkeley, CA 94704
   lngmin: -122.27213111034243,
   lngmax: -122.26894554981382 }
 db.locations.find({ lng: {$lt: -122.26894554981382, $gt: -122.27213111034243}, lat: {$lt: 37.87145028857529, $gt: 37.86831106396377}})
+
+
+{ latmin: 37.86831106396377,
+  latmax: 37.87145028857529,
+  lngmin: -122.27213111034243,
+  lngmax: -122.26894554981382 }
 
 
 

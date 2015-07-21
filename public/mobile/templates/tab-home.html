@@ -1,0 +1,22 @@
+<ion-view view-title="Home">
+  <ion-content style="height: 100%">
+    <div class="bar bar-header item-input-inset">
+        <!-- search bar -->
+         <label class="item-input-wrapper">           
+              <input id="pac-input" style="z-index: 2" type="text" placeholder="Address..." ng-change="autocomplete()" ng-model="location.searchAddress">
+         </label>
+        <!-- end search bar -->
+    </div>
+    <!--begin suggestion bar-->
+      <div class="list-group" ng-hide="notSuggesting">
+        <a href="#" ng-repeat="c in suggestions" class="list-group-item" ng-click="suggestionTaken(c)">
+          {{c.name}}
+        </a>
+      </div>
+    <!-- end suggestion bar-->
+  </ion-content>
+  <!-- footer button -->
+  <div class="bar bar-subfooter margin-clear-tab">
+      <button class="button button-block button-assertive" ui-sref="tab.home-input1">Add Review</button>
+  </div>
+</ion-view>

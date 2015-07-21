@@ -1,10 +1,7 @@
-A. build home page account
-	add home template, with dummy search bar and button on the footer
-	nav stack
+implement https on the backend - perfect the server
 
-B. the tab nav bar should have home/account
-	if user is logged in, the account view should render logout page
-	if not, render the login form
-		add user auth system in the backend
+deploy the new server on heroku
+	learn about production servers, monitoring etc
 
-C. add re
+deploy the app on an android emulator - test small ui issues, such as the search and suggestion bar
+	
