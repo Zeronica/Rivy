@@ -139,7 +139,7 @@ var rivys = {
 	},
 
 	upvoteRivy: function(req, res, next) {
-		req.rivy.upvote(req.userID, function(err, rivy){
+		req.rivy.upvote(function(err, rivy){
 			if (err) { return next(err); }
 
 			res.json(rivy);

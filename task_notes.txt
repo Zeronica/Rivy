@@ -1,7 +1,5 @@
-implement https on the backend - perfect the server
+add google maps directive and google maps coordinates
 
-deploy the new server on heroku
-	learn about production servers, monitoring etc
+perfect marker dropping and radius stuff
 
-deploy the app on an android emulator - test small ui issues, such as the search and suggestion bar
-	
+add upvotes and comments for rivys

@@ -1,0 +1,7 @@
+address: "2650 Haste St Berkeley, CA 94704",
+lat: "37.86646395921707",
+lng: "-122.25485689938068"
+
+address: "2400 Durant Ave, Berkeley, CA",
+lat: "37.86751605570316",
+lng: "-122.26107962429523"

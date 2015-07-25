@@ -1,19 +1,26 @@
 <ion-view view-title="Home">
   <ion-content style="height: 100%">
-    <div class="bar bar-header item-input-inset">
-        <!-- search bar -->
-         <label class="item-input-wrapper">           
-              <input id="pac-input" style="z-index: 2" type="text" placeholder="Address..." ng-change="autocomplete()" ng-model="location.searchAddress">
-         </label>
-        <!-- end search bar -->
-    </div>
-    <!--begin suggestion bar-->
-      <div class="list-group" ng-hide="notSuggesting">
-        <a href="#" ng-repeat="c in suggestions" class="list-group-item" ng-click="suggestionTaken(c)">
-          {{c.name}}
-        </a>
+    
+    <!-- search bar -->          
+      <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input type="search" placeholder="Search" ng-model="location.address">
+        </label>
+        <button class="button button-clear" ng-click="search()">
+          Search
+        </button>
       </div>
-    <!-- end suggestion bar-->
+    <!-- end search bar -->
+
+
+    <!--location list -->
+    <div class="card" ng-repeat="loc in locations">
+      <a href="#/tab/rivyFeed/{{loc._id}}" class="item item-text-wrap">
+        {{loc.address}}
+      </a>
+    </div>
+
   </ion-content>
   <!-- footer button -->
   <div class="bar bar-subfooter margin-clear-tab">

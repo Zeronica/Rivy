@@ -2,18 +2,11 @@
   <ion-content class="padding">
 	<form ng-submit="submit()">
 		<div class="list list-inset">
+
 		  <label class="item item-input item-floating-label">
 		    <span class="input-label">Address</span>
-		    <input type="text" ng-change="autocomplete()" ng-model="location.searchAddress" placeholder="Address">
+            <input type="text" ng-model="location.address"/>
 		  </label>
-
-		    <!--begin suggestion bar-->
-		      <div class="list-group" ng-hide="notSuggesting" style="z-index: 1">
-		        <a href="#" ng-repeat="c in suggestions" class="list-group-item" ng-click="suggestionTaken(c)">
-		          {{c.name}}
-		        </a>
-		      </div>
-		    <!-- end suggestion bar-->
 
 		  <label class="item item-input item-floating-label">
 		    <span class="input-label">Title</span>

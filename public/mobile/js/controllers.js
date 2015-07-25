@@ -1,1 +1,1 @@
-angular.module('starter.controllers', ['homeController', 'homeInputController', 'authController'])
+angular.module('starter.controllers', ['homeController', 'homeInputController', 'authController', 'feedController'])

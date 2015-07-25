@@ -1,0 +1,10 @@
+<ion-view view-title="commentFeed">
+<ion-content>
+  <div class="list">
+    <a class="item item-icon-right" href="#" ng-repeat="comment in comments">
+      <p>{{comment.body}}</p>
+      <i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{comment.upvotes}}</p></i>
+    </a>
+  </div>
+</ion-content>
+</ion-view>

@@ -57,6 +57,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       requiredLogin: true
     }
   })
+  .state('tab.rivyFeed', {
+    url: '/rivyFeed/:location_id',
+    views: {
+      'tab-home': {
+        templateUrl: 'mobile/templates/tab-rivyFeed.html',
+        controller: 'rivyFeedCtrl',
+        resolve: {
+          rivysAtLocation: function($stateParams, Rivys) {
+            return Rivys.getAtLocation({_id: $stateParams.location_id});
+          }
+        }
+      }
+    },
+    access: {
+      requiredLogin: true
+    }
+  })
+  .state('tab.commentFeed', {
+    url: '/commentFeed/:rivy_id',
+    views: {
+      'tab-home': {
+        templateUrl: 'mobile/templates/tab-commentFeed.html',
+        controller: 'commentFeedCtrl',
+        resolve: {
+          rivy: function($stateParams, Rivys) {
+            return Rivys.getOne({_id: $stateParams.rivy_id});
+          }
+        }
+      }
+    },
+    access: {
+      requiredLogin: true
+    }
+  })
   .state('tab.home-input1', {
     url: '/home/input1',
     views: {
