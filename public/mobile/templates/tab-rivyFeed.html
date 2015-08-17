@@ -1,11 +1,13 @@
 <ion-view view-title="rivyFeed">
 <ion-content>
   <div class="list">
-    <a class="item item-icon-right" href="#/tab/commentFeed/{{rivy._id}}" ng-repeat="rivy in rivys">
+  	<span class="item item-icon-right" ng-repeat="rivy in rivys">
+    <a href="#/tab/commentFeed/{{rivy._id}}" style="text-decoration: none">
       <h2>{{rivy.title}}</h2>
       <p>{{rivy.body}}</p>
-      <i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{rivy.upvotes}}</p></i>
     </a>
+    <i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{rivy.upvotes}}</p></i>
+</span>
   </div>
 </ion-content>
 </ion-view>

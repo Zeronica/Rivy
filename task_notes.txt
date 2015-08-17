@@ -1,7 +1,8 @@
-autosuggestion box on homefeed and rivyform
+clicking on an upvote should not be the same as clicking on the rivy DONE
 
-clicking on an upvote should not be the same as clicking on the rivy
-
-add a comment bar to the rivyfeed
+comments
+	on each rivy, an icon should display the number of comments
+	add a comment bar to the rivyfeed
 	when there are no comments, display a text saying that "there are no comments"
+
 
