@@ -18,7 +18,10 @@
     <!-- cordova script (this will be a 404 during development) -->
 <!--     // <script src="cordova.js"></script> -->
 
-    <!-- bootstrap -->
+    <!-- google maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="mobile/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <link rel="stylesheet" href="mobile/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
 
     <!-- your app's js -->
     <script src="mobile/js/app.js"></script>
@@ -29,6 +32,7 @@
       <script src="mobile/js/controllers/feedController.js"></script>
     <script src="mobile/js/services.js"></script>
   </head>
+
   <body ng-app="starter">
     <!--
       The nav bar that will be updated as we navigate between views.

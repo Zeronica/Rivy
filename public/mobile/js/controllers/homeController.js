@@ -3,21 +3,10 @@
 
 var app = angular.module('homeController', [])
 
-var locationData = [
-	{
-		address: "2650 Haste St Berkeley, CA 94704",
-		lat: "37.86646395921707",
-		lng: "-122.25485689938068"
-	},
-	{
-		address: "2400 Durant Ave, Berkeley, CA",
-		lat: "37.86751605570316",
-		lng: "-122.26107962429523"
-	}
-]
-
 app.controller('HomeCtrl', function($scope, Locations, $http, Rivys) {
-	$scope.location = locationData[0];
+	$scope.autocomplete= {
+		result: ''
+	};
 
 	$scope.notSuggesting = true;
 
@@ -32,11 +21,32 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys) {
 	}
 
 	$scope.search = function() {
-		Locations.getInRadius($scope.location, function() {
+		var address = $scope.autocomplete.result.formatted_address;
+		var location = {
+			lat: $scope.autocomplete.result.geometry.location.G,
+			lng: $scope.autocomplete.result.geometry.location.K
+		};
+
+		console.log(address);
+		console.log(location);
+		Locations.getInRadius(location, function() {
 			//$scope.$apply();
 		});
 	}
 })
+
+// var locationData = [
+// 	{
+// 		address: "2650 Haste St Berkeley, CA 94704",
+// 		lat: "37.86646395921707",
+// 		lng: "-122.25485689938068"
+// 	},
+// 	{
+// 		address: "2400 Durant Ave, Berkeley, CA",
+// 		lat: "37.86751605570316",
+// 		lng: "-122.26107962429523"
+// 	}
+// ]
 
 	// $scope.autocomplete = function() {
 	// 	$scope.notSuggesting = true;

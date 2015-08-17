@@ -1,5 +1,7 @@
-add google maps directive and google maps coordinates
+autosuggestion box on homefeed and rivyform
 
-perfect marker dropping and radius stuff
+clicking on an upvote should not be the same as clicking on the rivy
 
-add upvotes and comments for rivys
+add a comment bar to the rivyfeed
+	when there are no comments, display a text saying that "there are no comments"
+
