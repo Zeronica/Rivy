@@ -7,4 +7,14 @@
     </a>
   </div>
 </ion-content>
+<!-- footer comment input -->
+<div class="bar bar-footer item-input-inset" style="margin:0px 0px 50px;">
+  <label class="item-input-wrapper">
+    <i class="icon ion-chatbubble-working placeholder-icon"></i>
+    <input type="text" ng-model="commentInput.body" placeholder="Comment">
+  </label>
+  <button class="button button-clear" ng-click="commentSubmit()">
+    Comment
+  </button>
+</div>
 </ion-view>

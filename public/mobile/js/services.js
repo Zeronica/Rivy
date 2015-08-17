@@ -45,6 +45,14 @@ module.factory('Rivys', function($http) {
 		return $http.post('http://localhost:3000/api/v1/rivys', newRivyObject);
 	}
 
+  o.submitComment = function(rivy, newCommentObject, cb) {
+    return $http.post('http://localhost:3000/api/v1/' + rivy._id + '/comments', newCommentObject).success(function(comment) {
+      cb(comment);
+    }).error(function(err) {
+      console.log(err);
+    });
+  }
+
   o.getAtLocation = function(location) {
     return $http.get('http://localhost:3000/api/v1/rivys/' + location._id).success(function(data) {
       return data;
