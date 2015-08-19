@@ -15,11 +15,18 @@
 
 
     <!--location list -->
-    <div class="card" ng-repeat="loc in locations">
+<!--     <div class="card" ng-repeat="loc in locations">
       <a href="#/tab/rivyFeed/{{loc._id}}" class="item item-text-wrap">
         {{loc.address}}
       </a>
-    </div>
+    </div> -->
+
+    <ui-gmap-google-map center="map.center" zoom="map.zoom">
+        <ui-gmap-window show="map.window.show" coords="map.window.model" options="map.window.options" closeclick="map.window.closeClick()" templateUrl="map.window.templateUrl" templateParameter="map.window.templateParameter">
+            <div ng-non-bindable="">test</div>
+        </ui-gmap-window>
+        <ui-gmap-markers idkey="'location_id'" models="map.markers" coords="'self'" docluster="false" fit="'true'" icon="'icon'" events="map.markersEvents" options="'options'"></ui-gmap-markers>
+    </ui-gmap-google-map>
 
   </ion-content>
   <!-- footer button -->

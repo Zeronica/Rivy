@@ -3,21 +3,67 @@
 
 var app = angular.module('homeController', [])
 
-app.controller('HomeCtrl', function($scope, Locations, $http, Rivys) {
+app.controller('HomeCtrl', function($scope, Locations, $http, Rivys, uiGmapGoogleMapApi) {
+
 	$scope.autocomplete= {
 		result: ''
 	};
-
-	$scope.notSuggesting = true;
-
-	$scope.locations = Locations.locations;
-
-	$scope.suggestions = [];
+	// console.log($scope.markers);
 
 	var refresh = function() {
 		Locations.getAll(function() {
 			$scope.$apply();
 		});
+	}
+
+	// generate markers from Location service
+    $scope.map = {
+        center: {
+            latitude: 37.8715926,
+            longitude: -122.27275
+        },
+        zoom: 8,
+        markers: [], 
+        markersEvents: {
+            click: function(marker, eventName, model, arguments) {
+            	console.log(model);
+            	// center on the marker
+                $scope.map.center.latitude = model.latitude;
+                $scope.map.center.longitude = model.longitude;
+                // initialize the infowindow
+                $scope.map.window.model = model;
+                $scope.map.window.templateParameter = {model: model};
+                $scope.map.window.show = true;
+            }
+        },
+        window: {
+            marker: {},
+            show: false,
+            closeClick: function() {
+                this.show = false;
+            },
+            templateUrl: 'mobile/templates/infoWindow.html',
+            templateParameter: null,
+            options: {} // define when map is ready
+        }
+    };
+
+    var loadMarkers = function() {
+		for (i in Locations.locations) {
+			var location = Locations.locations[i];
+			marker = ({
+				latitude: location.lat,
+				longitude: location.lng,
+				location_id: location._id,
+				address : location.address,
+				options: {
+					labelClass:'marker_labels',
+					labelAnchor: '12 60',
+					labelContent: location.address
+				}
+			});
+			$scope.map.markers.push(marker);
+		}
 	}
 
 	$scope.search = function() {
@@ -27,58 +73,18 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys) {
 			lng: $scope.autocomplete.result.geometry.location.K
 		};
 
-		console.log(address);
-		console.log(location);
 		Locations.getInRadius(location, function() {
-			//$scope.$apply();
+			console.log(Locations.locations);
+
+			// recenter the map
+			$scope.map.center.latitude = location.lat;
+			$scope.map.center.longitude = location.lng;
+			$scope.map.zoom = 8;
+
+			console.log(address);
+			console.log(location);
+
+			loadMarkers();
 		});
 	}
 })
-
-// var locationData = [
-// 	{
-// 		address: "2650 Haste St Berkeley, CA 94704",
-// 		lat: "37.86646395921707",
-// 		lng: "-122.25485689938068"
-// 	},
-// 	{
-// 		address: "2400 Durant Ave, Berkeley, CA",
-// 		lat: "37.86751605570316",
-// 		lng: "-122.26107962429523"
-// 	}
-// ]
-
-	// $scope.autocomplete = function() {
-	// 	$scope.notSuggesting = true;
-
-	// 	if ($scope.location.searchAddress == '')
-	// 		return;
-
-	// 	console.log($scope.location.searchAddress);
-	// 	searchAddress = $scope.location.searchAddress;
-
-	// 	var config = {
-	// 		params: {
-	// 			key: "AhNdHOWj6Vrjo7RoS2Szrl0tohwggPYIWnlV68ltu8vD0cj-PiGKzguZf6NOqFLo",
-	// 			q: searchAddress,
-	// 		},
-	// 		cache: true
-	// 	};
-
-	// 	var url = "http://dev.virtualearth.net/REST/v1/Locations?jsonp=JSON_CALLBACK";
-
-	// 	$http.jsonp(url, config).success(function(data) {
-	// 		var result = data.resourceSets[0];
- //            if (result) {
- //                if (result.estimatedTotal > 0) {
- //                	$scope.notSuggesting = false;
- //                	$scope.suggestions = result.resources;
- //                	console.log($scope.suggestions);
- //                	// $scope.$apply();
- //                }
- //            }
-	// 	}).error(function(result) {
-	// 		console.log(result);
-	// 	})
-	// }
-

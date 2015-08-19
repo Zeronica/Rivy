@@ -5,10 +5,17 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'google.places', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'google.places', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
+  // configure google maps
+  uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyCbKtbVR9vkkN6aKtO_uhfYBQJWBYa2zQ0',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+  });
 
+  // $http interceptor, for authentication
   $httpProvider.interceptors.push('TokenInterceptor');
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -16,7 +23,6 @@ angular.module('starter', ['ionic', 'google.places', 'starter.controllers', 'sta
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
   .state('login', {
     url: "/login",
     templateUrl: "mobile/templates/login.html",
@@ -32,14 +38,12 @@ angular.module('starter', ['ionic', 'google.places', 'starter.controllers', 'sta
       requiredLogin: false
     }
   })
-
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "mobile/templates/tabs.html"
   })
-
   .state('tab.home', {
     url: '/home',
     views: {
@@ -103,7 +107,6 @@ angular.module('starter', ['ionic', 'google.places', 'starter.controllers', 'sta
     }
     }
   })
-
   .state('tab.account', {
     url: '/account',
     views: {

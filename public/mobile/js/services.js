@@ -19,7 +19,7 @@ module.factory('Locations', ['$location', '$http', 'UserAuthFactory', function($
 	}
 
 	o.getInRadius = function(locationObj, callback) {
-    var queryString = locationObj.lat + '/' + locationObj.lng + '/' + 100;
+    var queryString = locationObj.lat + '/' + locationObj.lng + '/' + 1000;
 
     return $http.get('http://localhost:3000/api/v1/locations/' + queryString)
       .success(function(data) {
