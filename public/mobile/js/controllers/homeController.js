@@ -16,13 +16,53 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys, uiGmapGoogl
 		});
 	}
 
+	// default center and radius
+	var defaultCenter = {
+        latitude: 37.8715926,
+        longitude: -122.27275
+	}
+
+	var defaultRadius = 1000; //km
+
+	// generate bounds from a latlng object
+	var calculateBounds = function(center, d) {
+		lat = center.latitude;
+		lon = center.longitude;
+
+		earthRad = 6371;
+		r = d/earthRad;
+
+		latT = Math.asin(Math.sin(lat)/Math.cos(r));
+
+		deltaLon = Math.acos( ( Math.cos(r) - Math.sin(latT) * Math.sin(lat) ) / ( Math.cos(latT) * Math.cos(lat) ) );
+	      // = Math.asin(Math.sin(r)/Math.cos(lat));
+
+	    var o = {
+			latmin : lat - r,
+			latmax : lat + r,
+			lngmin : lon - deltaLon,
+			lngmax : lon + deltaLon
+		}
+
+		var r = {
+			northeast: {
+				latitude: o.latmax,
+				longitude: o.lngmin
+			},
+			southwest: {
+				latitude: o.latmin,
+				longitude: o.lngmax
+			}
+		}
+
+		return r;
+	}
+
 	// generate markers from Location service
     $scope.map = {
-        center: {
-            latitude: 37.8715926,
-            longitude: -122.27275
-        },
-        zoom: 8,
+        center: defaultCenter,
+        bounds: calculateBounds(defaultCenter, defaultRadius),
+        zoom: 12,
         markers: [], 
         markersEvents: {
             click: function(marker, eventName, model, arguments) {
@@ -74,17 +114,23 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys, uiGmapGoogl
 		};
 
 		Locations.getInRadius(location, function() {
-			console.log(Locations.locations);
-
-			// recenter the map
-			$scope.map.center.latitude = location.lat;
-			$scope.map.center.longitude = location.lng;
-			$scope.map.zoom = 8;
-
-			console.log(address);
 			console.log(location);
 
-			loadMarkers();
+			// check whether locations found
+			if (Locations.locations.length) {
+				console.log(address);
+				console.log(location);
+
+				loadMarkers();
+			} else {
+				alert("sorry, we couldn't find any rivies in your area, why not start one?");
+			}
+
+			// recenter the map on the search address
+			$scope.map.center.latitude = location.lat;
+			$scope.map.center.longitude = location.lng;
+			$scope.map.bounds = calculateBounds($scope.map.center, defaultRadius);
+
 		});
 	}
 })
