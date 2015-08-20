@@ -42,6 +42,7 @@ router.post('/api/v1/rivys', rivys.createRivy);
 router.get('/api/v1/rivy/upvote/:rivy', rivys.upvoteRivy);
 router.get('/api/v1/:rivy/comments/:comment/upvote', rivys.upvoteRivyComment);
 router.post('/api/v1/:rivy/comments', rivys.createRivyComment);
+router.get('/api/v1/rivys/filter/self', rivys.getAllForSelf);
 
 // locations
 router.get('/api/v1/locations', locations.getAll);

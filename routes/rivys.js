@@ -38,6 +38,13 @@ var rivys = {
 		})
 	},
 
+	getAllForSelf: function(req, res, next) {
+		Rivy.find({user: req.user}, function(err, rivys) {
+			if (err){return next(err);}
+			res.json(rivys);
+		})
+	},
+
 	getAllAtLocation: function(req, res, next) {
 		Rivy.find({location: req.location}, function(err, rivys){
 			if (err){return next(err);}
@@ -45,8 +52,9 @@ var rivys = {
 		});
 	},
 
-	getOne: function(req, res) {
-	  req.rivy.populate('comments', function(err, rivy) {
+	getOne: function(req, res, next) {
+	  req.rivy
+	  .populate('comments user', '-password', function(err, rivy) {
 		if (err) { return next(err); }
 
 		res.json(rivy);
@@ -63,6 +71,7 @@ var rivys = {
 
 		saveRivy = function(location) {
 			req.body.location = location;
+			req.body.user = req.user;
 			console.log(req.body);
 			rivy = new Rivy(req.body);
 

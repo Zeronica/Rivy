@@ -20,7 +20,7 @@ module.exports = function(req, res, next) {
                 });
                 return;
             }
-            req.userID = decoded.userID;
+            req.user = decoded.userID;
             next();
             // // Authorize the user to see if s/he can access our resources
             // var dbUser = validateUser(key); // The key would be the logged in user's username
