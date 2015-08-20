@@ -166,7 +166,7 @@ describe('check one-to-many relationship between user and rivys', function() {
 						expect(res.body[0].user).to.equal("55d626ca4af1703a19c5a164");
 						// this checks getting user from rivy
 						superagent
-							.get(secureUrlPath + '/rivy/' + '55d62b1b5352c3d41aef268e')
+							.get(secureUrlPath + '/rivy/' + '55d65212bcd0540828d6144d')
 							.set('x-access-token', token)
 							.end(function(res) {
 								expect(res.status).to.equal(200);

@@ -11,6 +11,8 @@ app.controller('rivyFeedCtrl', function($scope, rivysAtLocation, Rivys) {
 })
 
 app.controller('commentFeedCtrl', function($scope, rivy, Rivys) {
+	$scope.rivy = rivy.data;
+
 	$scope.comments = rivy.data.comments;
 
 	$scope.commentInput = {

@@ -1,11 +1,40 @@
-<ion-view view-title="commentFeed">
+<ion-view view-title={{rivy.title}}>
 <ion-content>
-  <div class="list">
-    <a class="item item-icon-right" href="#" ng-repeat="comment in comments">
-      <p>{{comment.body}}</p>
-      <i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{comment.upvotes}}</p></i>
-    </a>
+  <div class="list card">
+
+    <!-- rivy header -->
+    <div class="item item-avatar">
+      <img src="mcfly.jpg">
+      <h2>{{rivy.user.username}}</h2>
+      <p>{{rivy.title}}</p>
+    </div>
+
+    <!-- rivy body -->
+    <div class="item item-body">
+      <img class="full-image" src="delorean.jpg">
+      <p>
+        {{rivy.body}}
+      </p>
+      <p>
+        <a href="#" class="subdued">{{rivy.upvotes}} upvotes</a>
+        <a href="#" class="subdued">{{rivy.comments.length}} Comments</a>
+      </p>
+    </div>
   </div>
+
+    <!-- comments -->
+<!--     <div class="item item-body"> -->
+      <div class="list">
+        <div class="item item-divider">
+          Comments
+        </div>
+        <a class="item item-icon-right" href="#" ng-repeat="comment in comments">
+          <p>{{comment.body}}</p>
+          <i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{comment.upvotes}}</p></i>
+        </a>
+      </div>
+<!--     </div> -->
+
 </ion-content>
 <!-- footer comment input -->
 <div class="bar bar-footer item-input-inset" style="margin:0px 0px 50px;">

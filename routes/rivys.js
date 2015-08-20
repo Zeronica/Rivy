@@ -56,7 +56,7 @@ var rivys = {
 	  req.rivy
 	  .populate('comments user', '-password', function(err, rivy) {
 		if (err) { return next(err); }
-
+		
 		res.json(rivy);
 	  });
 	},
@@ -97,6 +97,8 @@ var rivys = {
 	},
 
 	createRivyComment: function(req, res, next) {
+		req.body.user = req.user;
+
 		var comment = new Comment(req.body);
 		comment.rivy = req.rivy;
 

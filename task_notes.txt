@@ -1,14 +1,1 @@
-clear the database, limit rivies to specific addresses DONE
-popup when no locations found DONE
-	later:
-		given an address, give a list of suggestions of already existing locations via popup
-		upon startup, autolocate the user and do a search
-
-generate a username for login accounts, comments, rivies should be associated with a username
-
-profile page to keep track of the rivies you've made
-	later:
-		notifications when rivies have been "liked"
-		notificiations when comments have been "liked"
-
-ratings system when making a rivy
+upon loading, get the user's location, and immediately make a query based on the long latitude
