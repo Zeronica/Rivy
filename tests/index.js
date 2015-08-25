@@ -76,6 +76,11 @@ var urlPath = 'http://localhost:' + port;
 // 	});
 // });
 
+var logThing = function(thing) {
+	console.log("!!!!XXXXXXXXXXXXXXXXXXXXXX==============XXXXXXXXXXXXXXXXX!!!!!");
+	console.log(thing);
+}
+
 var secureUrlPath = urlPath + '/api/v1';
 
 var login = function(cb) {
@@ -85,7 +90,8 @@ var login = function(cb) {
 		.send('{"username": "dummy@gmail.com", "password": "password"}')
 		.end(function(res){
 			expect(res.body.token).not.to.be(undefined);
-			cb(res.body.token);
+			logThing(res.body);
+			cb(res.body.token, res.body.user._id);
 		})
 }
 
@@ -152,7 +158,7 @@ describe('check one-to-many relationship between user and rivys', function() {
 	});
 
 	it('should allow the user to find rivies based on self', function(done){
-		login(function(token) {
+		login(function(token, user_id) {
 			postTwoRivies(token, function(res, token) {
 				
 				// this checks getting rivys from the user
@@ -161,17 +167,31 @@ describe('check one-to-many relationship between user and rivys', function() {
 					.set('x-access-token', token)
 					.end(function(res) {
 						expect(res.status).to.equal(200);
-						//console.log(res);
+						console.log("===================================");
+						console.log(res.body);
 						expect(res.body.length).not.to.equal(0);
-						expect(res.body[0].user).to.equal("55d626ca4af1703a19c5a164");
+						// test all rivies
+						expect(res.body[0].user).to.equal(user_id);
 						// this checks getting user from rivy
+						rivy_id = res.body[0]._id;
+
 						superagent
-							.get(secureUrlPath + '/rivy/' + '55d65212bcd0540828d6144d')
+							.get(secureUrlPath + '/rivy/' + rivy_id)
 							.set('x-access-token', token)
 							.end(function(res) {
 								expect(res.status).to.equal(200);
-								console.log(res.body);
-								done();
+								expect(res.body.user.username).to.equal("dummy@gmail.com");
+
+								// check posting a comment to the rivy
+								superagent
+									.post(secureUrlPath + '/' + rivy_id + '/comments')
+									.set('Content-Type', 'application/json')
+									.set('x-access-token', token)
+									.send('{"body": "lul"}')
+									.end(function(res){
+										expect(res.status).to.equal(200);
+										done();
+									})
 							})
 					})
 			})

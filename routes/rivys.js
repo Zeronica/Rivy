@@ -8,8 +8,7 @@ var CommentLike = mongoose.model('CommentLike');
 // match in the database, if not creates a new entry
 // either way returns a location_id
 var processLocationData = function(data, next, cb) {
-	console.log(data);
-
+	
 	return Location.findOne({address: data.address}, function(err, location) {
 		// if location already exists
 		if (location) {
@@ -53,13 +52,15 @@ var rivys = {
 	},
 
 	getOne: function(req, res, next) {
-	  req.rivy
-	  .populate('comments user', '-password', function(err, rivy) {
-		if (err) { return next(err); }
-		
-		res.json(rivy);
-	  });
-	},
+		Rivy.findById(req.rivy._id)
+			.populate('comments')
+			.populate('user', '-password')
+			.exec(function(err, rivy) {
+				if (err) { return next(err); }
+				res.json(rivy);
+			})
+		}
+	,
 
 	createRivy: function(req, res, next) {
 		// check, the body should have location object, 
@@ -97,10 +98,13 @@ var rivys = {
 	},
 
 	createRivyComment: function(req, res, next) {
-		req.body.user = req.user;
+		req.body.author = req.user;
+		req.body.rivy = req.rivy;
 
 		var comment = new Comment(req.body);
-		comment.rivy = req.rivy;
+
+		console.log("-===========================--==============");
+		console.log(comment);
 
 		comment.save(function(err, comment){
 			if(err){ return next(err); }

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var CommentSchema = new mongoose.Schema({
   body: {type: String, required: true},  
-  author: String,
+  author: {type: mongoose.Schema.Types.ObjectId, required: true},
   upvotes: {type: Number, default: 0},
   upvoted: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],

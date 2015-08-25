@@ -14,7 +14,9 @@ require('./models/Users');
 
 var configDB = require('./config/database.js');
 
-mongoose.connect(configDB.url);
+var dbOption = 0; // 0 -> mongolab, 1 -> local
+
+mongoose.connect(configDB.url[dbOption]);
 
 var app = express();
 // end db stuff
@@ -82,6 +84,7 @@ if (app.get('env') === 'development') {
 var server = http.createServer(app);
 var boot = function () {
   server.listen(app.get('port'), function(){
+    console.info('databaseUrl' + configDB.url[dbOption]);
     console.info('Express server listening on port ' + app.get('port'));
   });
 }
@@ -91,8 +94,9 @@ var shutdown = function() {
 if (require.main === module) {
   boot(); 
 }
-else {
+else {  // testing
   console.info('Running app as a module')
+  dbOption = 1;
   exports.boot = boot;
   exports.shutdown = shutdown;
   exports.port = app.get('port');

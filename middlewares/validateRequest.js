@@ -1,4 +1,5 @@
 var jwt = require('jwt-simple');
+var User = require('mongoose').model('User');
 //var validateUser = require('../routes/auth').validateUser;
 
 module.exports = function(req, res, next) {
@@ -20,8 +21,12 @@ module.exports = function(req, res, next) {
                 });
                 return;
             }
-            req.user = decoded.userID;
-            next();
+            // load the user information
+            User.findById(decoded.userID).exec(function(err, user) {
+                if (err) { return next(err); }
+                req.user = user;
+                next();
+            })
             // // Authorize the user to see if s/he can access our resources
             // var dbUser = validateUser(key); // The key would be the logged in user's username
             // if (dbUser) {

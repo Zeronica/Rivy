@@ -9,15 +9,15 @@ var Location = mongoose.model('Location');
 var preload = {
 	
 	loadRivy: function(req, res, next, id) {
-	  var query = Rivy.findById(id);
+		var query = Rivy.findById(id);
 
-	  query.exec(function (err, rivy){
-		if (err) { return next(err); }
-		if (!rivy) { return next(new Error('can\'t find rivy')); }
+		query.exec(function (err, rivy){
+			if (err) { return next(err); }
+			if (!rivy) { return next(new Error('can\'t find rivy')); }
 
-		req.rivy = rivy;
-		return next();
-	  });
+			req.rivy = rivy;
+			return next();
+		});
 	},
 
 	loadLocation: function(req, res, next, id) {
