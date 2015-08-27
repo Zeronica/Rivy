@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "JWT_SECRET=ABC node-dev app.js"
+    "start": "JWT_SECRET=ABC node-dev app.js",
+    "test": "make test"
   },
   "dependencies": {
     "body-parser": "~1.12.0",

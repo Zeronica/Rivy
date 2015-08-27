@@ -4,6 +4,7 @@ var boot = require('../app').boot,
 	expect = require('expect.js'),
 	superagent = require('superagent');
 
+
 var urlPath = 'http://localhost:' + port;
 
 // describe('user login', function(){
@@ -89,8 +90,8 @@ var login = function(cb) {
 		.set('Content-Type', 'application/json')
 		.send('{"username": "dummy@gmail.com", "password": "password"}')
 		.end(function(res){
-			expect(res.body.token).not.to.be(undefined);
 			logThing(res.body);
+			expect(res.body.token).not.to.be(undefined);
 			cb(res.body.token, res.body.user._id);
 		})
 }
@@ -107,7 +108,6 @@ var postTwoRivies = function(token, cb) {
 			body: "lululululululul1"
 		})
 		.end(function(res) {
-			
 			expect(res.status).to.equal(200);
 			superagent
 				.post(secureUrlPath + '/rivys')
@@ -131,74 +131,113 @@ var postTwoRivies = function(token, cb) {
 		})
 }
 
-describe('post 3 rivys of two locations and get those locations', function() {
-	before(function () {
-		boot();
-	});
+describe("Rivy Post and Get", function() {
 
-	it('should allow user to login and post rivies', function(done){
-		login(function(token) {
-			postTwoRivies(token, function(res) {
-					expect(res.status).to.equal(200);
-					//console.log(res);
-					done();
+    // before(function(done) {
+    // 	done();
+    // });
+
+    // after(function(done) {
+    // 	shutdown();
+    // 	done();
+    // });
+
+    var user_id = undefined;
+    var token = undefined;
+
+    beforeEach(function(done) {
+        // empty mongo collection
+        console.log("beforeEach");
+		done();
+    });
+
+    describe("", function() {
+		it('should allow user to login and post rivies', function(done){
+			// login(function(token) {
+			// 	postTwoRivies(token, function(res) {
+			// 		//console.log(res);
+			// 		expect(res.status).to.equal(200);
+			// 		done();
+			// 	})
+			// })
+			login(function(token) {
+				console.log(token);
+				done();
 			})
-		})
-	});
+		});
+    })
+});
 
-	after(function() {
-		shutdown();
-	});
-})
+// describe('post 3 rivys of two locations and get those locations', function() {
+// 	before(function (done) {
+// 		boot();
+// 		done();
+// 	});
 
-// check user-rivy link
-describe('check one-to-many relationship between user and rivys', function() {
-	before(function () {
-		boot();
-	});
+// 	it('should allow user to login and post rivies', function(done){
+// 		login(function(token) {
+// 			postTwoRivies(token, function(res) {
+// 					expect(res.status).to.equal(200);
+// 					//console.log(res);
+// 					done();
+// 			})
+// 		})
+// 	});
 
-	it('should allow the user to find rivies based on self', function(done){
-		login(function(token, user_id) {
-			postTwoRivies(token, function(res, token) {
+// 	after(function() {
+// 		shutdown();
+// 	});
+// })
+
+// // check user-rivy link
+// describe('check one-to-many relationship between user and rivys', function() {
+// 	before(function (done) {
+// 		boot();
+// 		done();
+// 	});
+
+// 	it('should allow the user to find rivies based on self', function(done){
+// 		login(function(token, user_id) {
+// 			postTwoRivies(token, function(res, token) {
 				
-				// this checks getting rivys from the user
-				superagent
-					.get(secureUrlPath + '/rivys/filter/self')
-					.set('x-access-token', token)
-					.end(function(res) {
-						expect(res.status).to.equal(200);
-						console.log("===================================");
-						console.log(res.body);
-						expect(res.body.length).not.to.equal(0);
-						// test all rivies
-						expect(res.body[0].user).to.equal(user_id);
-						// this checks getting user from rivy
-						rivy_id = res.body[0]._id;
+// 				// this checks getting rivys from the user
+// 				superagent
+// 					.get(secureUrlPath + '/rivys/filter/self')
+// 					.set('x-access-token', token)
+// 					.end(function(res) {
+// 						expect(res.status).to.equal(200);
+// 						console.log("===================================");
+// 						console.log(res.body);
+// 						expect(res.body.length).not.to.equal(0);
+// 						// test all rivies
+// 						expect(res.body[0].user).to.equal(user_id);
+// 						// this checks getting user from rivy
+// 						rivy_id = res.body[0]._id;
 
-						superagent
-							.get(secureUrlPath + '/rivy/' + rivy_id)
-							.set('x-access-token', token)
-							.end(function(res) {
-								expect(res.status).to.equal(200);
-								expect(res.body.user.username).to.equal("dummy@gmail.com");
+// 						superagent
+// 							.get(secureUrlPath + '/rivy/' + rivy_id)
+// 							.set('x-access-token', token)
+// 							.end(function(res) {
+// 								expect(res.status).to.equal(200);
+// 								expect(res.body.user.username).to.equal("dummy@gmail.com");
 
-								// check posting a comment to the rivy
-								superagent
-									.post(secureUrlPath + '/' + rivy_id + '/comments')
-									.set('Content-Type', 'application/json')
-									.set('x-access-token', token)
-									.send('{"body": "lul"}')
-									.end(function(res){
-										expect(res.status).to.equal(200);
-										done();
-									})
-							})
-					})
-			})
-		})
-	});
+// 								// check posting a comment to the rivy
+// 								superagent
+// 									.post(secureUrlPath + '/' + rivy_id + '/comments')
+// 									.set('Content-Type', 'application/json')
+// 									.set('x-access-token', token)
+// 									.send('{"body": "lul"}')
+// 									.end(function(res){
+// 										expect(res.status).to.equal(200);
+// 										done();
+// 									})
+// 							})
+// 					})
+// 			})
+// 		})
+// 	});
 
-	after(function() {
-		shutdown();
-	});
-})
+// 	after(function() {
+// 		shutdown();
+// 	});
+// })

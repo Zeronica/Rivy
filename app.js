@@ -14,7 +14,7 @@ require('./models/Users');
 
 var configDB = require('./config/database.js');
 
-var dbOption = 0; // 0 -> mongolab, 1 -> local
+var dbOption = 1; // 0 -> mongolab, 1 -> local
 
 mongoose.connect(configDB.url[dbOption]);
 
