@@ -27,11 +27,14 @@ angular.module('authController', [])
 
 			if (username != undefined && password != undefined) {
 				UserAuthFactory.login(username, password).success(function(data) {
+
 					AuthenticationFactory.isLogged = true;
 					AuthenticationFactory.user = data.user;
 
 					$window.sessionStorage.token = data.token;
 					$window.sessionStorage.user = data.user.username;
+
+					console.log(AuthenticationFactory.user);
 
 					$scope.user.username = '';
 					$scope.user.password = '';

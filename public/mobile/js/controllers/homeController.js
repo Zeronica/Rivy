@@ -10,12 +10,6 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys, uiGmapGoogl
 	};
 	// console.log($scope.markers);
 
-	var refresh = function() {
-		Locations.getAll(function() {
-			$scope.$apply();
-		});
-	}
-
 	// default center and radius
 	var defaultCenter = {
         latitude: 37.8715926,

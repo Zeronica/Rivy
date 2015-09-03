@@ -1,13 +1,18 @@
 <ion-view view-title="rivyFeed">
-<ion-content>
-  <div class="list">
-  	<span class="item item-icon-right" ng-repeat="rivy in rivys">
-	    <a href="#/tab/commentFeed/{{rivy._id}}" style="text-decoration: none">
-	      <h2>{{rivy.title}}</h2>
-	      <p>{{rivy.body}}</p> <!-- rating will go here -->
-	    </a>
-    	<i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{rivy.upvotes}}</p></i>
-	</span>
-  </div>
-</ion-content>
+	<ion-nav-buttons side="right">
+	  <button class="button" ng-click="toNewRivy()">
+	    New
+	  </button>
+	</ion-nav-buttons>
+	<ion-content>
+	  <div class="list">
+	  	<span class="item item-icon-right" ng-repeat="rivy in rivys">
+		    <a href="#/tab/commentFeed/{{rivy._id}}" style="text-decoration: none">
+		      <h2>{{rivy.title}}</h2>
+		      <p>{{rivy.body}}</p> <!-- rating will go here -->
+		    </a>
+	    	<i class="icon ion-thumbsup" ng-click="upvote(rivy)"><p>{{rivy.upvotes}}</p></i>
+		</span>
+	  </div>
+	</ion-content>
 </ion-view>

@@ -7,7 +7,7 @@ test:
 	./node_modules/mocha/bin/mocha \
 	--reporter $(REPORTER) \
 	$(MOCHA_OPTS) \
-	tests/*.js
+	tests/index.js
 	echo Ending test
  
 .PHONY: test 

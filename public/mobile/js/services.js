@@ -1,12 +1,14 @@
 var module = angular.module('starter.services', [])
 
+var url = 'http://localhost:5000';
+
 module.factory('Locations', ['$location', '$http', 'UserAuthFactory', function($location, $http, UserAuthFactory) {
 	var o = {
 		locations: [],
 	}
 
 	o.getAll = function(callback) {
-		return $http.get('http://localhost:3000/api/v1/locations')
+		return $http.get(url + '/api/v1/locations')
 			.success(function(data) {
 				angular.copy(data, o.locations);
 				if (callback) 
@@ -21,7 +23,7 @@ module.factory('Locations', ['$location', '$http', 'UserAuthFactory', function($
 	o.getInRadius = function(locationObj, callback) {
     var queryString = locationObj.lat + '/' + locationObj.lng + '/' + 1000;
 
-    return $http.get('http://localhost:3000/api/v1/locations/' + queryString)
+    return $http.get(url + '/api/v1/locations/' + queryString)
       .success(function(data) {
         angular.copy(data, o.locations);
         if (callback) 
@@ -42,11 +44,11 @@ module.factory('Rivys', function($http) {
 	}
 
 	o.submit = function(newRivyObject) {
-		return $http.post('http://localhost:3000/api/v1/rivys', newRivyObject);
+		return $http.post(url + '/api/v1/rivys', newRivyObject);
 	}
 
   o.submitComment = function(rivy, newCommentObject, cb) {
-    return $http.post('http://localhost:3000/api/v1/' + rivy._id + '/comments', newCommentObject).success(function(comment) {
+    return $http.post(url + '/api/v1/' + rivy._id + '/comments', newCommentObject).success(function(comment) {
       cb(comment);
     }).error(function(err) {
       console.log(err);
@@ -54,7 +56,7 @@ module.factory('Rivys', function($http) {
   }
 
   o.getAtLocation = function(location) {
-    return $http.get('http://localhost:3000/api/v1/rivys/' + location._id).success(function(data) {
+    return $http.get(url + '/api/v1/rivys/' + location._id).success(function(data) {
       return data;
     }).error(function(err) {
       console.log(err);
@@ -62,7 +64,7 @@ module.factory('Rivys', function($http) {
   }
 
   o.getOne = function(rivy) {
-    return $http.get('http://localhost:3000/api/v1/rivy/' + rivy._id).success(function(data) {
+    return $http.get(url + '/api/v1/rivy/' + rivy._id).success(function(data) {
       return data;
     }).error(function(err) {
       console.log(err);
@@ -70,7 +72,15 @@ module.factory('Rivys', function($http) {
   }
 
   o.upvote = function(rivy, cb) {
-    return $http.get('http://localhost:3000/api/v1/rivy/upvote/' + rivy._id).success(function() {
+    return $http.get(url + '/api/v1/rivy/upvote/' + rivy._id).success(function() {
+      cb()
+    }).error(function(err) {
+      console.log(err);
+    })
+  }
+
+  o.upvoteComment = function(rivy, comment, cb) {
+    return $http.get(url + '/api/v1/' + rivy._id + '/comments/' + comment._id + '/upvote').success(function() {
       cb()
     }).error(function(err) {
       console.log(err);
@@ -107,13 +117,13 @@ module.factory('UserAuthFactory', function($window, $location, $http, Authentica
   
   return {
     login: function(username, password) {
-      return $http.post('http://localhost:3000/login', {
+      return $http.post(url + '/login', {
         username: username,
         password: password
       });
     },
     createAccount: function(username, password) {
-      return $http.post('http://localhost:3000/signup', {
+      return $http.post(url + '/signup', {
         username: username,
         password: password
       }); 
@@ -150,6 +160,7 @@ module.factory('TokenInterceptor', function($q, $window, $location) {
     responseError: function(response) {
         if(response.status === 401) {
           $location.path('/login');
+          alert('Oops! Something went wrong, please login again.');
           return $q.reject(response);
         }
         else {

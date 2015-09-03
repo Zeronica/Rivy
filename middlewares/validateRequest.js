@@ -14,9 +14,9 @@ module.exports = function(req, res, next) {
         try {
             var decoded = jwt.decode(token, require('../config/secret.js')());
             if (decoded.exp <= Date.now()) {
-                res.status(400);
+                res.status(401);
                 res.json({
-                    "status": 400,
+                    "status": 401,
                     "message": "Token Expired"
                 });
                 return;
@@ -24,6 +24,15 @@ module.exports = function(req, res, next) {
             // load the user information
             User.findById(decoded.userID).exec(function(err, user) {
                 if (err) { return next(err); }
+                if (!user) {
+                    res.status(401);
+                    res.json({
+                        "status": 401,
+                        "message": "Token invalid"
+                    })
+
+                    return;
+                }
                 req.user = user;
                 next();
             })

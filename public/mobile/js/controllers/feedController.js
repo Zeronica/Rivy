@@ -1,12 +1,16 @@
 var app = angular.module('feedController', []);
 
-app.controller('rivyFeedCtrl', function($scope, rivysAtLocation, Rivys) {
-	$scope.rivys = rivysAtLocation.data;
+app.controller('rivyFeedCtrl', function($scope, $state, rivysAtLocation, Rivys) {
+	$scope.rivys = rivysAtLocation.data.rivys;
 
 	$scope.upvote = function(rivy) {
 		Rivys.upvote(rivy, function() {
 			rivy.upvotes += 1;
 		});
+	}
+
+	$scope.toNewRivy = function() {
+		$state.go('tab.home-input1', rivysAtLocation.data.location);
 	}
 })
 
@@ -20,7 +24,7 @@ app.controller('commentFeedCtrl', function($scope, rivy, Rivys) {
 	}
 
 	$scope.upvote = function(comment) {
-		Rivys.upvoteComment(comment, function() {
+		Rivys.upvoteComment($scope.rivy, comment, function() {
 			comment.upvotes += 1;
 		});
 	}

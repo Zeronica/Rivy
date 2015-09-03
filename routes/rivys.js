@@ -47,7 +47,10 @@ var rivys = {
 	getAllAtLocation: function(req, res, next) {
 		Rivy.find({location: req.location}, function(err, rivys){
 			if (err){return next(err);}
-			res.json(rivys);
+			res.json({
+				location: req.location,
+				rivys: rivys
+			});
 		});
 	},
 

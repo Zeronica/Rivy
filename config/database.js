@@ -11,7 +11,7 @@
 module.exports = {
 	'url' : [
 		'mongodb://zeronica:northamerica@ds035673.mongolab.com:35673/rivy',
-		'mongodb://localhost:27017'
+		'mongodb://localhost:27017/test'
 		]
 }
 

@@ -49,12 +49,12 @@ angular.module('starter', ['ionic', 'google.places', 'uiGmapgoogle-maps', 'start
     views: {
       'tab-home': {
         templateUrl: 'mobile/templates/tab-home.html',
-        controller: 'HomeCtrl',
-        resolve: {
-          locationsPromise: ['Locations', 'UserAuthFactory', function(Locations, UserAuthFactory){
-              Locations.getAll();
-          }]
-        }
+        controller: 'HomeCtrl'
+        // resolve: {
+        //   locationsPromise: ['Locations', 'UserAuthFactory', function(Locations, UserAuthFactory){
+        //       Locations.getAll();
+        //   }]
+        // }
       }
     }
     ,access: {
@@ -70,6 +70,9 @@ angular.module('starter', ['ionic', 'google.places', 'uiGmapgoogle-maps', 'start
         resolve: {
           rivysAtLocation: function($stateParams, Rivys) {
             return Rivys.getAtLocation({_id: $stateParams.location_id});
+          },
+          location_id: function($stateParams) {
+            return $stateParams.location_id;
           }
         }
       }
@@ -96,15 +99,15 @@ angular.module('starter', ['ionic', 'google.places', 'uiGmapgoogle-maps', 'start
     }
   })
   .state('tab.home-input1', {
-    url: '/home/input1',
+    url: '/home/input1/:address/:lng/:lat',
     views: {
       'tab-home': {
         templateUrl: 'mobile/templates/tab-home-input1.html',
         controller: 'HomeInputCtrl'
       },
-    access: {
-      requiredLogin: true
-    }
+      access: {
+        requiredLogin: true
+      }
     }
   })
   .state('tab.account', {

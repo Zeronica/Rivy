@@ -2,17 +2,17 @@
 
 angular.module('homeInputController', [])
 
-.controller('HomeInputCtrl', function($scope, $state, Rivys) {
+.controller('HomeInputCtrl', function($scope, $state, Rivys, $stateParams) {
 
 	$scope.autocomplete = {
-		result : '',
+		result : $stateParams.address || '',
 		options : {
 			types: ['address']
 		}
 	}
 
 	var clear = function() {
-		$scope.rivyInput = {
+		$scope.rivyInput = {		
 			title: 'asdf',
 			body: 'asdfas'
 		}
@@ -20,22 +20,36 @@ angular.module('homeInputController', [])
 
 	clear();
 
+	// if ($stateParams.address) {
+	// 	$scope.autocomplete.result = $stateParams.address;
+	// }
+
+
 	$scope.submit = function() {
 		// verify address has been entered correctly
-		if (!$scope.autocomplete.result) {
+		// if (!$scope.rivyInput.lat || !$scope.rivyInput.lng) {
+		// 	if (!$scope.autocomplete.result.geometry) {
+		// 		return alert("make sure you enter a correct address");
+		// 	}
+		// 	$scope.rivyInput.lat = $scope.autocomplete.result.geometry.location.G;
+		// 	$scope.rivyInput.lng = $scope.autocomplete.result.geometry.location.K;
+		// }
+
+		if ($scope.autocomplete.result.geometery) {
 			return alert("make sure you enter a correct address");
 		}
 
 		var inputObject = {
 			address: $scope.autocomplete.result.formatted_address,
-			lat: $scope.autocomplete.result.geometry.location.G,
-			lng: $scope.autocomplete.result.geometry.location.K
+			lng: $stateParams.lng || $scope.autocomplete.result.geometry.location.G,
+			lat: $stateParams.lat || $scope.autocomplete.result.geometry.location.K
 		}
 
 		// verify the contents of the rivy
 		if ($scope.rivyInput.title && $scope.rivyInput.body) {
 			inputObject.title = $scope.rivyInput.title;
 			inputObject.body = $scope.rivyInput.body;
+
 			Rivys.submit(inputObject).success(function(data) {
 				alert("Your rivy has been successfully submitted! Thank you!");
 				clear();

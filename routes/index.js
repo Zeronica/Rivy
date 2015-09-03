@@ -28,6 +28,7 @@ router.post('/signup', auth.signup);
 router.post('/deregister', auth.deregister);
 
 // serve location, rivys, and rivy data
+router.get('/api/v1/rivys', rivys.getAll);
 router.get('/api/v1/locations/:lat/:lng/:distance', locations.getAllWithinBounds);
 router.get('/api/v1/rivys/:location', rivys.getAllAtLocation);
 router.get('/api/v1/rivy/:rivy', rivys.getOne);
