@@ -1,4 +1,8 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['myApp.controllers', 'myApp.services']);
+
+app.controller('tempHomeCtrl', function($scope) {
+	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+});
 
 app.controller('locationProfileCtrl', function($scope, $stateParams) {
 	$scope.location_id = $stateParams.location_id;

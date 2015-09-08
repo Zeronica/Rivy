@@ -160,3 +160,5 @@ input.scrollable-header {
   position: relative;
   padding-bottom: 10px;
 }
+
+.angular-google-map-container { height: 400px; }

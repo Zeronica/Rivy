@@ -3,9 +3,11 @@
 // has dependent on mobile-angular-ui
 // 
 var app = angular.module('MobileAngularUiExamples', [
-	'mobile-angular-ui',
-	'myApp',
 	'ui.router',
+	'mobile-angular-ui',
+	'google.places',
+	'uiGmapgoogle-maps',
+	'myApp',
 	
 	// touch/drag feature: this is from 'mobile-angular-ui.gestures.js'
 	// it is at a very beginning stage, so please be careful if you like to use
@@ -20,12 +22,21 @@ app.run(function($transform) {
 	window.$transform = $transform;
 });
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+	
+	// configure google maps
+	uiGmapGoogleMapApiProvider.configure({
+	  key: 'AIzaSyCbKtbVR9vkkN6aKtO_uhfYBQJWBYa2zQ0',
+	  v: '3.17',
+	  libraries: 'weather,geometry,visualization'
+	});
+
 	$stateProvider
 		.state('home',
 			{
 				url:'/home', 
 				templateUrl: '/templates/pages/home.html', 
+				controller: 'tempHomeCtrl',
 				reloadOnSearch: false
 			})
 		// nested state

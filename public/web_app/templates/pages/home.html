@@ -9,8 +9,10 @@
 
     <input
       type="search"
+      g-places-autocomplete
       class="form-control scrollable-header"
-      placeholder="Search.." />
+      placeholder="Search.." 
+      ng-model="myScopeVar"/>
 
 
     <ui-state id='activeTab' default='1'></ui-state>
@@ -23,6 +25,7 @@
 
 <!-- map view -->
   <div ui-if="activeTab == 2">
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
   </div>
 
 
