@@ -8,18 +8,38 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+
     <link rel="stylesheet" href="/dist/css/mobile-angular-ui-hover.min.css" />
     <link rel="stylesheet" href="/dist/css/mobile-angular-ui-base.min.css" />
     <link rel="stylesheet" href="/dist/css/mobile-angular-ui-desktop.min.css" />
     <link rel="stylesheet" href="/style.css" />
+
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/bower_components/ui-router/release/angular-ui-router.js"></script>
     <script src="/dist/js/mobile-angular-ui.min.js"></script>
     <!-- Required to use $touch, $swipe, $drag and $translate services -->
     <script src="/dist/js/mobile-angular-ui.gestures.min.js"></script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+    <!-- google maps -->
+    <script src='/bower_components/underscore/underscore-min.js'></script>
+    <script src='/bower_components/lodash/lodash.min.js'></script>
+    <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+
+    <!-- autocomplete -->
+    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+
     <script src="/script.js"></script>
     <script src="/app.js"></script>
+    <script src="/js/controllers.js"></script>
+        <script src="js/controllers/authController.js"></script>
+        <script src="js/controllers/feedController.js"></script>
+        <script src="js/controllers/homeController.js"></script>
+        <script src="js/controllers/homeInputController.js"></script>
+    <script src="/js/services.js"></script>
   </head>
 
   <body 

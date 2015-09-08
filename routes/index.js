@@ -21,27 +21,26 @@ router.param('location', preload.loadLocation);
 router.param('comment', preload.loadComment);
 
 /*
- * Routes that can be accessed by any one
+ * Routes related to authenticaion
  */
 router.post('/login', auth.login);
 router.post('/signup', auth.signup);
 router.post('/deregister', auth.deregister);
 
-// serve location, rivys, and rivy data
-router.get('/api/v1/rivys', rivys.getAll);
-router.get('/api/v1/locations/:lat/:lng/:distance', locations.getAllWithinBounds);
-router.get('/api/v1/rivys/:location', rivys.getAllAtLocation);
-router.get('/api/v1/rivy/:rivy', rivys.getOne);
-router.get('/api/v1/rivys/filter/self', rivys.getAllForSelf);
+/*
+* No authentication required
+*/
+router.get('/rivys',  rivys.getAll);
+router.get('/locations/:lat/:lng/:distance', locations.getAllWithinBounds);
+router.get('/rivys/:location', rivys.getAllAtLocation);
+router.get('/rivy/:rivy', rivys.getOne);
 
-// comment and rivy creation
+// authentication required
+router.get('/api/v1/rivys/filter/self', rivys.getAllForSelf); // get rivys posted by user
 router.post('/api/v1/rivys', rivys.createRivy);
 router.post('/api/v1/:rivy/comments', rivys.createRivyComment);
-
-// comment and rivy upvote
 router.get('/api/v1/rivy/upvote/:rivy', rivys.upvoteRivy);
 router.get('/api/v1/:rivy/comments/:comment/upvote', rivys.upvoteRivyComment);
-
 
 // // test routes without auth
 // // router.get('/rivys', rivys.getAll);
