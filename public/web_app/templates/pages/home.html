@@ -1,42 +1,71 @@
+<div ui-content-for="title">
+  <span>
+    Home
+  </span>
+</div>
+
 <div class="scrollable">  
   <div class="scrollable-content">
 
-    <div class="list-group text-center">
-      <div class="list-group-item list-group-item-home">
-        <h1>Mobile Angular UI
-        Demo <small>1.2</small>
-        </h1>
+    <input
+      type="search"
+      class="form-control scrollable-header"
+      placeholder="Search.." />
+
+
+    <ui-state id='activeTab' default='1'></ui-state>
+
+    <div class="btn-group justified nav-tabs">
+            <a ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="btn btn-default active">Feed</a>
+
+            <a ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="btn btn-default">Map</a>
+    </div>
+
+<!-- map view -->
+  <div ui-if="activeTab == 2">
+  </div>
+
+
+<!-- list view -->
+    <div ui-if="activeTab == 1" class="list-group text-center ng-scope">
+
+      <!-- list of address cards -->
+      <div class="btn list-group-item list-group-item-home" ui-sref="locationProfile({location_id: 0})">
+        <div>
+            <i class="fa fa-gamepad feature-icon text-primary"></i>
+          </div>
+          <div>
+              <h3 class="home-heading">Address 0</h3>
+              Rating<br>
+              Price range $500 - $1200
+          </div>
+        </button>
       </div>
-      <div class="list-group-item list-group-item-home">
+
+
+      <div class="btn list-group-item list-group-item-home" ui-sref="locationProfile({location_id: 1})">    
         <div>
-          <i class="fa fa-gamepad feature-icon text-primary"></i>
-        </div>
-        <div>
-            <h3 class="home-heading">Play around a little</h3>
-            Open the sidebar and start testing features
-        </div>
+            <i class="fa fa-gamepad feature-icon text-primary"></i>
+          </div>
+          <div>
+              <h3 class="home-heading">Address 1</h3>
+              Rating<br>
+              Price range $500 - $1200
+          </div>
+        </button>
       </div>
 
 
-      <div class="list-group-item list-group-item-home">
+      <div class="btn list-group-item list-group-item-home" ui-sref="locationProfile({location_id: 2})">     
         <div>
-          <i class="fa fa-tachometer feature-icon  text-primary"></i>
-        </div>
-        <div>
-            <h3 class="home-heading">Test responsiveness and speed</h3>
-            Scroll, tap, navigate, test that everything is smooth
-        </div>
-      </div>
-
-
-      <div class="list-group-item list-group-item-home">
-        <div>
-          <i class="fa fa-expand feature-icon  text-primary"></i>
-        </div>
-        <div>
-            <h3 class="home-heading">Resize your browser</h3>
-            Stretch and squeeze your browser window to see both mobile and desktop versions.
-        </div>
+            <i class="fa fa-gamepad feature-icon text-primary"></i>
+          </div>
+          <div>
+              <h3 class="home-heading">Address 2</h3>
+              Rating<br>
+              Price range $500 - $1200
+          </div>
+        </button>
       </div>
 
       <div class="list-group-item list-group-item-home">

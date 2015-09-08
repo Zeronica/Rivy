@@ -1,6 +1,6 @@
 <div ui-content-for="title">
-  <span class="btn navbar-btn-tony" ui-sref="home">
-    <i class="fa fa-comment"></i> Back to Home
+  <span class="btn navbar-btn-tony" ui-sref="locationProfile({location_id: location_id})">
+    <i class="fa fa-comment"></i> Back to Location
   </span>
 </div>
 
@@ -11,7 +11,7 @@
 
       <!-- title card -->
       <div class="list-group-item list-group-item-home">
-        <h1>Location Profile
+        <h1>Rivy Profile
         Demo <small>1.2</small>
         </h1>
       </div>
@@ -24,20 +24,18 @@
             <i class="fa fa-gamepad feature-icon text-primary"></i>
           </div>
           <div>
-              <h3 class="home-heading">Address {{location_id}}</h3>
-              Rating<br>
-              Price range $500 - $1200
+              <h3 class="home-heading">Rivy title {{rivy_id}}</h3>
+              <br>
+              blah blah blah
           </div>
         </button>
       </div>
 
 
-      <a ng-repeat="item in rivys" ui-sref="rivyProfile({location_id: location_id, rivy_id: item._id})" class="list-group-item">
-        <h4>Rivy Title {{item._id}}</h4>
+      <div ng-repeat="item in comments" class="list-group-item">
+        <h4>Comment title {{item._id}}</h4>
         blah blah blah blah
-
-        <i class="fa fa-chevron-right pull-right"></i>
-      </a>
+      </div>
 
   </div>
 </div>

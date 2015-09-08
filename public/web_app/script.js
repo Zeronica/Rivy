@@ -3,9 +3,9 @@
 // has dependent on mobile-angular-ui
 // 
 var app = angular.module('MobileAngularUiExamples', [
-	'ngRoute',
 	'mobile-angular-ui',
 	'myApp',
+	'ui.router',
 	
 	// touch/drag feature: this is from 'mobile-angular-ui.gestures.js'
 	// it is at a very beginning stage, so please be careful if you like to use
@@ -20,20 +20,44 @@ app.run(function($transform) {
 	window.$transform = $transform;
 });
 
-// 
-// You can configure ngRoute as always, but to take advantage of SharedState location
-// feature (i.e. close sidebar on backbutton) you should setup 'reloadOnSearch: false' 
-// in order to avoid unwanted routing.
-// 
-app.config(function($routeProvider) {
-	$routeProvider.when('/',              {templateUrl: '/templates/pages/home.html', reloadOnSearch: false});
-    $routeProvider.when('/my_rivys',              {templateUrl: '/templates/pages/my_rivys.html', reloadOnSearch: false});
-    $routeProvider.when('/account',              {templateUrl: '/templates/pages/account.html', reloadOnSearch: false});
-    $routeProvider.when('/location_profile/:location_id', {
-        templateUrl: '/templates/pages/location_profile.html',
-        reloadOnSearch: false
-    });
-    $routeProvider.when('/new_rivy', {templateUrl: '/templates/pages/new_rivy.html', reloadOnSearch: false});
+app.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider
+		.state('home',
+			{
+				url:'/home', 
+				templateUrl: '/templates/pages/home.html', 
+				reloadOnSearch: false
+			})
+		// nested state
+    	.state('locationProfile',
+	   		{
+	    		url:'/location_profile/:location_id', 
+	    		templateUrl: '/templates/pages/location_profile.html',
+	    		controller: 'locationProfileCtrl',
+	    		reloadOnSearch: false
+	    	})
+    	.state('rivyProfile',
+	   		{
+	    		url:'/rivy_profile/:location_id/:rivy_id', 
+	    		templateUrl: '/templates/pages/rivy_profile.html',
+	    		controller: 'rivyProfileCtrl',
+	    		reloadOnSearch: false
+	    	})
+    	.state('account',              
+    		{
+    			url:'/account', 
+    			templateUrl: '/templates/pages/account.html', 
+    			reloadOnSearch: false
+    		})
+    	.state('new_rivy', {
+    			url:'/new_rivy', 
+    			templateUrl: '/templates/pages/new_rivy.html', 
+    			reloadOnSearch: false
+    		})
+
+    	// if none of the above states are matched, use this as the fallback
+  		$urlRouterProvider.otherwise('/home');
+
 });
 
 
