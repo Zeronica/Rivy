@@ -6,6 +6,8 @@ var app = angular.module('MobileAngularUiExamples', [
 	'ui.router',
 	'mobile-angular-ui',
 	'google.places',
+	'nemLogging',
+	'uiGmapgoogle-maps',
 	'myApp',
 	
 	// touch/drag feature: this is from 'mobile-angular-ui.gestures.js'
@@ -21,14 +23,14 @@ app.run(function($transform) {
 	window.$transform = $transform;
 });
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvider) {
 	
 	// // configure google maps
-	// uiGmapGoogleMapApiProvider.configure({
-	//   key: 'AIzaSyCbKtbVR9vkkN6aKtO_uhfYBQJWBYa2zQ0',
-	//   v: '3.17',
-	//   libraries: 'weather,geometry,visualization'
-	// });
+	uiGmapGoogleMapApiProvider.configure({
+	  key: 'AIzaSyCbKtbVR9vkkN6aKtO_uhfYBQJWBYa2zQ0',
+	  v: '3.17',
+	  libraries: 'weather,geometry,visualization'
+	});
 
 	$stateProvider
 		.state('home',
