@@ -8,7 +8,7 @@ module.factory('Locations', ['$location', '$http', 'UserAuthFactory', function($
 	}
 
 	o.getAll = function(callback) {
-		return $http.get(url + '/api/v1/locations')
+		return $http.get(url + '/locations')
 			.success(function(data) {
 				angular.copy(data, o.locations);
 				if (callback) 
@@ -23,7 +23,7 @@ module.factory('Locations', ['$location', '$http', 'UserAuthFactory', function($
 	o.getInRadius = function(locationObj, callback) {
     var queryString = locationObj.lat + '/' + locationObj.lng + '/' + 1000;
 
-    return $http.get(url + '/api/v1/locations/' + queryString)
+    return $http.get(url + '/locations/' + queryString)
       .success(function(data) {
         angular.copy(data, o.locations);
         if (callback) 
@@ -56,7 +56,7 @@ module.factory('Rivys', function($http) {
   }
 
   o.getAtLocation = function(location) {
-    return $http.get(url + '/api/v1/rivys/' + location._id).success(function(data) {
+    return $http.get(url + '/rivys/' + location._id).success(function(data) {
       return data;
     }).error(function(err) {
       console.log(err);
@@ -64,7 +64,7 @@ module.factory('Rivys', function($http) {
   }
 
   o.getOne = function(rivy) {
-    return $http.get(url + '/api/v1/rivy/' + rivy._id).success(function(data) {
+    return $http.get(url + '/rivy/' + rivy._id).success(function(data) {
       return data;
     }).error(function(err) {
       console.log(err);

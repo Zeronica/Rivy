@@ -3,7 +3,7 @@
 
 var app = angular.module('homeController', [])
 
-app.controller('HomeCtrl', function($scope, Locations, $http, Rivys, uiGmapGoogleMapApi) {
+app.controller('HomeCtrl', function($scope, Locations, $http, Rivys) {
 
 	$scope.autocomplete= {
 		result: ''
@@ -85,6 +85,7 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys, uiGmapGoogl
     var loadMarkers = function() {
 		for (i in Locations.locations) {
 			var location = Locations.locations[i];
+			console.log(location);
 			marker = ({
 				latitude: location.lat,
 				longitude: location.lng,

@@ -14,24 +14,24 @@
     <link rel="stylesheet" href="/dist/css/mobile-angular-ui-desktop.min.css" />
     <link rel="stylesheet" href="/style.css" />
 
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/bower_components/ui-router/release/angular-ui-router.js"></script>
-    <script src="/dist/js/mobile-angular-ui.min.js"></script>
-    <!-- Required to use $touch, $swipe, $drag and $translate services -->
-    <script src="/dist/js/mobile-angular-ui.gestures.min.js"></script>
-    
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+    <!-- autocomplete -->
+    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
 
     <!-- google maps -->
     <script src='/bower_components/underscore/underscore-min.js'></script>
     <script src='/bower_components/lodash/lodash.min.js'></script>
     <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
 
-    <!-- autocomplete -->
-    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
-
+    <script src="/dist/js/mobile-angular-ui.min.js"></script>
+    <!-- Required to use $touch, $swipe, $drag and $translate services -->
+    <script src="/dist/js/mobile-angular-ui.gestures.min.js"></script>
     <script src="/script.js"></script>
     <script src="/app.js"></script>
     <script src="/js/controllers.js"></script>

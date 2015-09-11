@@ -1,6 +1,9 @@
 var app = angular.module('feedController', []);
 
-app.controller('rivyFeedCtrl', function($scope, $state, rivysAtLocation, Rivys) {
+app.controller('locationProfileCtrl', function($scope, $state, rivysAtLocation, Rivys, $stateParams) {
+	$scope.location_address = $stateParams.location_address;
+	$scope.location_id = $stateParams.location_id;
+
 	$scope.rivys = rivysAtLocation.data.rivys;
 
 	$scope.upvote = function(rivy) {
@@ -14,7 +17,7 @@ app.controller('rivyFeedCtrl', function($scope, $state, rivysAtLocation, Rivys) 
 	}
 })
 
-app.controller('commentFeedCtrl', function($scope, rivy, Rivys) {
+app.controller('rivyProfileCtrl', function($scope, rivyPromise, Rivys) {
 	$scope.rivy = rivy.data;
 
 	$scope.comments = rivy.data.comments;

@@ -6,7 +6,6 @@ var app = angular.module('MobileAngularUiExamples', [
 	'ui.router',
 	'mobile-angular-ui',
 	'google.places',
-	'uiGmapgoogle-maps',
 	'myApp',
 	
 	// touch/drag feature: this is from 'mobile-angular-ui.gestures.js'
@@ -22,36 +21,47 @@ app.run(function($transform) {
 	window.$transform = $transform;
 });
 
-app.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 	
-	// configure google maps
-	uiGmapGoogleMapApiProvider.configure({
-	  key: 'AIzaSyCbKtbVR9vkkN6aKtO_uhfYBQJWBYa2zQ0',
-	  v: '3.17',
-	  libraries: 'weather,geometry,visualization'
-	});
+	// // configure google maps
+	// uiGmapGoogleMapApiProvider.configure({
+	//   key: 'AIzaSyCbKtbVR9vkkN6aKtO_uhfYBQJWBYa2zQ0',
+	//   v: '3.17',
+	//   libraries: 'weather,geometry,visualization'
+	// });
 
 	$stateProvider
 		.state('home',
 			{
 				url:'/home', 
 				templateUrl: '/templates/pages/home.html', 
-				controller: 'tempHomeCtrl',
+				controller: 'HomeCtrl',
 				reloadOnSearch: false
 			})
-		// nested state
+		// nested state 1
     	.state('locationProfile',
 	   		{
-	    		url:'/location_profile/:location_id', 
+	    		url:'/location_profile/:location_id/:location_address', 
 	    		templateUrl: '/templates/pages/location_profile.html',
 	    		controller: 'locationProfileCtrl',
+	    		resolve: {
+		          rivysAtLocation: function($stateParams, Rivys) {
+		            return Rivys.getAtLocation({_id: $stateParams.location_id});
+		          }
+	    		},
 	    		reloadOnSearch: false
 	    	})
+    	// nested state 2
     	.state('rivyProfile',
 	   		{
 	    		url:'/rivy_profile/:location_id/:rivy_id', 
 	    		templateUrl: '/templates/pages/rivy_profile.html',
 	    		controller: 'rivyProfileCtrl',
+		        resolve: {
+		          rivyPromise: function($stateParams, Rivys) {
+		            return Rivys.getOne({_id: $stateParams.rivy_id});
+		          }
+		        },
 	    		reloadOnSearch: false
 	    	})
     	.state('account',              

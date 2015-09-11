@@ -24,17 +24,19 @@
             <i class="fa fa-gamepad feature-icon text-primary"></i>
           </div>
           <div>
-              <h3 class="home-heading">Address {{location_id}}</h3>
+              <h3 class="home-heading">{{location_address}}</h3>
+              {{location_id}}
               Rating<br>
               Price range $500 - $1200
           </div>
         </button>
       </div>
 
-
-      <a ng-repeat="item in rivys" ui-sref="rivyProfile({location_id: location_id, rivy_id: item._id})" class="list-group-item">
-        <h4>Rivy Title {{item._id}}</h4>
-        blah blah blah blah
+      <a ng-repeat="rivy in rivys" ui-sref="rivyProfile({location_id: 0, rivy_id: 0})" class="list-group-item">
+        <h4>{{rivy.title}}</h4>
+        {{rivy.body}}
+        {{rivy._id}}
+        {{location_id}}
 
         <i class="fa fa-chevron-right pull-right"></i>
       </a>
