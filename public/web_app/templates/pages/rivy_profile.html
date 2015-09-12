@@ -24,17 +24,17 @@
             <i class="fa fa-gamepad feature-icon text-primary"></i>
           </div>
           <div>
-              <h3 class="home-heading">Rivy title {{rivy_id}}</h3>
+              <h3 class="home-heading"> {{rivy.title}}</h3>
               <br>
-              blah blah blah
+              {{rivy.body}}
           </div>
         </button>
       </div>
 
 
-      <div ng-repeat="item in comments" class="list-group-item">
-        <h4>Comment title {{item._id}}</h4>
-        blah blah blah blah
+      <div ng-repeat="comment in comments" class="list-group-item">
+        <h4>{{comment.title}}</h4>
+        {{comment.body}}
       </div>
 
   </div>

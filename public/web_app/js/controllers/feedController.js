@@ -17,10 +17,10 @@ app.controller('locationProfileCtrl', function($scope, $state, rivysAtLocation, 
 	}
 })
 
-app.controller('rivyProfileCtrl', function($scope, rivyPromise, Rivys) {
-	$scope.rivy = rivy.data;
+app.controller('rivyProfileCtrl', function($scope, rivyPromise, Rivys) {	
+	$scope.rivy = rivyPromise.data;
 
-	$scope.comments = rivy.data.comments;
+	$scope.comments = rivyPromise.data.comments;
 
 	$scope.commentInput = {
 		body: ''

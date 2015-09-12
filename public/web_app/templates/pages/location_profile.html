@@ -25,18 +25,18 @@
           </div>
           <div>
               <h3 class="home-heading">{{location_address}}</h3>
-              {{location_id}}
+
               Rating<br>
               Price range $500 - $1200
           </div>
         </button>
       </div>
 
-      <a ng-repeat="rivy in rivys" ui-sref="rivyProfile({location_id: 0, rivy_id: 0})" class="list-group-item">
+      <a ng-repeat="rivy in rivys" ui-sref="rivyProfile({location_id: location_id, rivy_id: rivy._id})" class="list-group-item">
         <h4>{{rivy.title}}</h4>
         {{rivy.body}}
-        {{rivy._id}}
-        {{location_id}}
+
+
 
         <i class="fa fa-chevron-right pull-right"></i>
       </a>
