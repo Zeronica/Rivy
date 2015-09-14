@@ -40,6 +40,12 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
 				controller: 'HomeCtrl',
 				reloadOnSearch: false
 			})
+		.state('rivyForm', {
+			url: '/rivyForm',
+			templateUrl: '/templates/forms.html',
+			controller: 'HomeInputCtrl',
+			reloadOnSearch: false
+		})
 		// nested state 1
     	.state('locationProfile',
 	   		{

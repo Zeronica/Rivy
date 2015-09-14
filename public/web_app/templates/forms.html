@@ -1,43 +1,41 @@
 <div ui-content-for="title">
-  <span>Forms</span>
+  <span>Rivy Form</span>
 </div>
 
 <div class="scrollable">
  <div class="scrollable-content section">
    
-  <form role="form" ng-submit='login()'>
+  <form role="form" ng-submit='submit()'>
     <fieldset>
-      <legend>Login</legend>
         <div class="form-group has-success has-feedback">
-          <label>Email</label>
-          <input type="email"
-                 ng-model="email"
-                 class="form-control"
-                 placeholder="Enter email">
+          <label>Address</label>
+          <input
+          type="search"
+          g-places-autocomplete
+          class="form-control"
+          placeholder="Search.." 
+          ng-model="autocomplete.result"/>
         </div>
 
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" 
+          <label>Title</label>
+          <input type="" 
                  class="form-control"
-                 placeholder="Password">
+                 placeholder="Title">
         </div>
 
         <div class="form-group">
-          <label>Remember Me</label>
-          <ui-switch 
-            ng-model='rememberMe'></ui-switch>
+          <label>Review</label>
+          <div>
+            <textarea class="extend" style="width: 800px; height: 150px;" ng-model="rivyInput.body" placeholder="Review"></textarea></div>
         </div>
+
     </fieldset>
     <hr>
 
     <button class="btn btn-primary btn-block">
-      Login
+      Submit
     </button>
-
-    <div ui-content-for="navbarAction">
-      <a class='btn' ng-click='login()'>Login</a>
-    </div>
 
   </form>
  </div>

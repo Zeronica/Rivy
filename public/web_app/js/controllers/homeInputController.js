@@ -14,7 +14,7 @@ angular.module('homeInputController', [])
 	var clear = function() {
 		$scope.rivyInput = {		
 			title: 'asdf',
-			body: 'asdfas'
+			body: ''
 		}
 	}
 
@@ -53,7 +53,7 @@ angular.module('homeInputController', [])
 			Rivys.submit(inputObject).success(function(data) {
 				alert("Your rivy has been successfully submitted! Thank you!");
 				clear();
-				$state.go('tab.home');
+				$state.go('home');
 			})
 		} else {
 			return alert("Please make sure you fill out all the input areas");
