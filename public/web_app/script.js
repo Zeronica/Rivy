@@ -40,9 +40,30 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
 				controller: 'HomeCtrl',
 				reloadOnSearch: false
 			})
+		.state('login',
+			{
+				url:'/login', 
+				templateUrl: '/templates/login.html',
+				controller: 'LoginCtrl',
+				reloadOnSearch: false
+			})
+		.state('logout',
+		{
+        	url: '/logout',
+        	template: '<div class="logout-message">Logging out...</div>',
+        	controller: 'AccountCtrl',
+        	reloadOnSearch: false
+    	})
+		.state('createAccount',
+			{
+				url:'/createAccount', 
+				templateUrl: '/templates/createAccount.html',
+				controller: 'LoginCtrl',
+				reloadOnSearch: false
+			})
 		.state('rivyForm', {
 			url: '/rivyForm',
-			templateUrl: '/templates/forms.html',
+			templateUrl: '/templates/rivyForm.html',
 			controller: 'HomeInputCtrl',
 			reloadOnSearch: false
 		})
@@ -85,7 +106,7 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
     		})
 
     	// if none of the above states are matched, use this as the fallback
-  		$urlRouterProvider.otherwise('/home');
+  		$urlRouterProvider.otherwise('/login');
 
 });
 
@@ -306,6 +327,13 @@ app.directive('dragMe', ['$drag', function($drag){
 // for everything
 //
 app.controller('MainController', function($rootScope, $scope){
+
+	// $scope.$watch(function () {
+ //        return $scope.switched = $rootScope.switches; //sets nodeId to the collectionId
+ //    },function (newValue, oldValue) {
+ //    	$scope.switched = newValue;});
+		
+		$scope.switches = { hideHeader: false };
 
 	$scope.swiped = function(direction) {
 		alert('Swiped ' + direction);

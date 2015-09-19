@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Mobile Angular UI Demo</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
@@ -10,8 +9,9 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="/dist/css/mobile-angular-ui-hover.min.css" />
-    <link rel="stylesheet" href="/dist/css/mobile-angular-ui-base.min.css" />
+    <link rel="stylesheet" href="/dist/css/mobile-angular-ui-base.css" />
     <link rel="stylesheet" href="/dist/css/mobile-angular-ui-desktop.min.css" />
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css" />
     <link rel="stylesheet" href="/style.css" />
 
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
@@ -22,7 +22,6 @@
 
     <!-- autocomplete -->
     <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
     <script src='/bower_components/angular-simple-logger/dist/index.js'></script>
     <!-- google maps -->
     <script src='/bower_components/underscore/underscore-min.js'></script>
@@ -42,29 +41,28 @@
     <script src="/js/services.js"></script>
   </head>
 
-  <body 
+  <body
     ng-app="MobileAngularUiExamples" 
     ng-controller="MainController"
     ui-prevent-touchmove-defaults
     >
 
     <!-- Sidebars -->
-    <div ng-include="'/templates/sidebar.html'" 
+    <div ng-include="'/templates/sidebar.html'"
             ui-track-as-search-param='true'
             class="sidebar sidebar-left"></div>
 
-    <div ng-include="'/templates/sidebarRight.html'" 
+    <div ng-include="'/templates/sidebarRight.html'"
             class="sidebar sidebar-right"></div>
 
-    <div class="app" 
+    <div class="app"
          ui-swipe-right='Ui.turnOn("uiSidebarLeft")'
          ui-swipe-left='Ui.turnOff("uiSidebarLeft")'>
 
       <!-- Navbars -->
 
-      <div class="navbar navbar-app navbar-absolute-top">
+      <div class="navbar navbar-app navbar-absolute-top" >
         <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
-          Mobile Angular UI
         </div>
         <div class="btn-group pull-left">
           <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
@@ -78,16 +76,9 @@
         </div>
       </div>
 
-      <div class="navbar navbar-app navbar-absolute-bottom">
-        <div class="btn-group justified">
-          <a href="/docs" class="btn btn-navbar"><i class="fa fa-home fa-navbar"></i> Docs</a>
-          <a href="https://github.com/mcasimir/mobile-angular-ui" class="btn btn-navbar"><i class="fa fa-github fa-navbar"></i> Sources</a>
-          <a href="https://github.com/mcasimir/mobile-angular-ui/issues" class="btn btn-navbar"><i class="fa fa-exclamation-circle fa-navbar"></i> Issues</a>
-        </div>
-      </div>
 
       <!-- App Body -->
-      <div class="app-body" ng-class="{loading: loading}">
+      <div class="app-body" ng-class="{loading: loading}" >
         <div ng-show="loading" class="app-content-loading">
           <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>

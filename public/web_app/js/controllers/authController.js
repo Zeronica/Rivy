@@ -1,6 +1,7 @@
 angular.module('authController', [])
 
 .controller('AccountCtrl', ['$scope', 'UserAuthFactory', 'AuthenticationFactory', function($scope, UserAuthFactory, AuthenticationFactory) {
+	debugger;
 	$scope.logout = function() {
 		UserAuthFactory.logout();
 	}
@@ -8,11 +9,16 @@ angular.module('authController', [])
 	$scope.username = AuthenticationFactory.username;
 }])
 
-.controller('LoginCtrl', ['$state', '$scope', '$window', 'UserAuthFactory', 'AuthenticationFactory',	
-	function($state, $scope, $window, UserAuthFactory, AuthenticationFactory) {
+.controller('LoginCtrl', ['$state', '$scope', '$window', 'UserAuthFactory', 'AuthenticationFactory','$rootScope',	
+	function($state, $scope, $window, UserAuthFactory, AuthenticationFactory,$rootScope) {
+		// $rootScope.switches = true ;
 		$scope.user = {
 			username: 'dummy@gmail.com',
 			password: 'password'
+		}
+
+		$scope.create = function(){
+			location.href = '#createAccount';
 		}
 
 		$scope.userCreate = {
@@ -39,7 +45,7 @@ angular.module('authController', [])
 					$scope.user.username = '';
 					$scope.user.password = '';
 
-					$state.go('tab.home');
+					$state.go('home');
 				}).error(function(result){
 					// code implies error
 					if (result.status === 401) {
@@ -71,7 +77,7 @@ angular.module('authController', [])
 					$scope.user.username = '';
 					$scope.user.password = '';
 
-					$state.go('tab.home');
+					$state.go('home');
 				}).error(function(result){
 					// code implies error
 					if (result.status === 401) {

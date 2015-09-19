@@ -163,9 +163,13 @@ input.scrollable-header {
 
 .angular-google-map-container { height: 770px; }
 
-.input-group {
-  padding-top: 0px;
+.new-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  padding-top: 14px; !important;
 }
+
 
 .app-search + .scrollable {
   padding-top: 0px;

@@ -138,7 +138,7 @@ module.factory('UserAuthFactory', function($window, $location, $http, Authentica
         delete $window.sessionStorage.user;
       }
 
-
+      debugger;
       $location.path('/login')
     }
   }

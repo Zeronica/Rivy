@@ -8714,7 +8714,7 @@ a.list-group-item .icon.pull-right {
 }
 
 .app-search + .scrollable {
-  padding-top: 34px;
+  padding-top: 0px;
 }
 
 input.ng-invalid,
