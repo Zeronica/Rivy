@@ -19,11 +19,23 @@ var app = angular.module('MobileAngularUiExamples', [
 	'mobile-angular-ui.gestures'
 	]);
 
-app.run(function($transform) {
+app.run(function($transform , $state, $rootScope, $location, $window, AuthenticationFactory) {
 	window.$transform = $transform;
+  AuthenticationFactory.check();
+ 
+  $rootScope.$on("$stateChangeStart", function(event, next) {
+    console.log(AuthenticationFactory.isLogged);
+    if ((next.access && next.access.requiredLogin) && !AuthenticationFactory.isLogged) {
+      $location.path('/login');
+    } else {
+      // check if user object exists else fetch it. This is incase of a page refresh
+      if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
+      if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
+    }
+  });
 });
 
-app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvider) {
+app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvider ,$httpProvider) {
 	
 	// // configure google maps
 	uiGmapGoogleMapApiProvider.configure({
@@ -31,6 +43,8 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
 	  v: '3.17',
 	  libraries: 'weather,geometry,visualization'
 	});
+
+	$httpProvider.interceptors.push('TokenInterceptor');
 
 	$stateProvider
 		.state('home',
@@ -65,7 +79,8 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
 			url: '/rivyForm',
 			templateUrl: '/templates/rivyForm.html',
 			controller: 'HomeInputCtrl',
-			reloadOnSearch: false
+			reloadOnSearch: false ,
+			requiredLogin: true
 		})
 		// nested state 1
     	.state('locationProfile',
@@ -109,6 +124,7 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
   		$urlRouterProvider.otherwise('/login');
 
 });
+
 
 
 // ==================================================================================

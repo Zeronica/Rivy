@@ -1,7 +1,6 @@
 angular.module('authController', [])
 
 .controller('AccountCtrl', ['$scope', 'UserAuthFactory', 'AuthenticationFactory', function($scope, UserAuthFactory, AuthenticationFactory) {
-	debugger;
 	$scope.logout = function() {
 		UserAuthFactory.logout();
 	}
