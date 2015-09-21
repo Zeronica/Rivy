@@ -24,10 +24,12 @@ app.run(function($transform , $state, $rootScope, $location, $window, Authentica
   AuthenticationFactory.check();
  
   $rootScope.$on("$stateChangeStart", function(event, next) {
+  	console.log(next);
     console.log(AuthenticationFactory.isLogged);
-    if ((next.access && next.access.requiredLogin) && !AuthenticationFactory.isLogged) {
-    	alert("lol");
-      $location.path('/login');
+    if ((next.requiredLogin) && !AuthenticationFactory.isLogged) {
+		event.preventDefault();
+		alert("Please login first to access this feature.");
+		$state.go('login');
     } else {
       // check if user object exists else fetch it. This is incase of a page refresh
       if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
@@ -76,13 +78,6 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
 				controller: 'LoginCtrl',
 				reloadOnSearch: false
 			})
-		.state('rivyForm', {
-			url: '/rivyForm',
-			templateUrl: '/templates/rivyForm.html',
-			controller: 'HomeInputCtrl',
-			reloadOnSearch: false ,
-			requiredLogin: true
-		})
 		// nested state 1
     	.state('locationProfile',
 	   		{
@@ -109,17 +104,27 @@ app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvide
 		        },
 	    		reloadOnSearch: false
 	    	})
+		.state('rivyForm', {
+			url: '/rivyForm',
+			templateUrl: '/templates/rivyForm.html',
+			controller: 'HomeInputCtrl',
+			reloadOnSearch: false,
+			requiredLogin: true
+		})
     	.state('account',              
     		{
     			url:'/account', 
     			templateUrl: '/templates/pages/account.html', 
-    			reloadOnSearch: false
+    			reloadOnSearch: false,
+    			requiredLogin: true
     		})
-    	.state('new_rivy', {
-    			url:'/new_rivy', 
-    			templateUrl: '/templates/pages/new_rivy.html', 
-    			reloadOnSearch: false
-    		})
+    	.state('my_rivys', 
+	    	{
+	    		url:'/my_rivys',
+	    		templateUrl: '/templates/pages/my_rivys.html',
+	    		reloadOnSearch: false,
+	    		requiredLogin: true
+	    	})
 
     	// if none of the above states are matched, use this as the fallback
   		$urlRouterProvider.otherwise('/login');
