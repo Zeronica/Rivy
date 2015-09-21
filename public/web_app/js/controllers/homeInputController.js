@@ -41,8 +41,8 @@ angular.module('homeInputController', [])
 
 		var inputObject = {
 			address: $scope.autocomplete.result.formatted_address,
-			lng: $stateParams.lng || $scope.autocomplete.result.geometry.location.H,
-			lat: $stateParams.lat || $scope.autocomplete.result.geometry.location.L
+			lng: $stateParams.lng || $scope.autocomplete.result.geometry.location.L,
+			lat: $stateParams.lat || $scope.autocomplete.result.geometry.location.H
 		}
 
 		// verify the contents of the rivy
