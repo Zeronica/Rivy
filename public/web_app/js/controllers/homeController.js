@@ -104,13 +104,13 @@ app.controller('HomeCtrl', function($scope, Locations, $http, Rivys) {
 	$scope.search = function() {
 		var address = $scope.autocomplete.result.formatted_address;
 		var location = {
-			lat: $scope.autocomplete.result.geometry.location.G,
-			lng: $scope.autocomplete.result.geometry.location.K
+			lat: $scope.autocomplete.result.geometry.location.H,
+			lng: $scope.autocomplete.result.geometry.location.L
 		};
+		console.log(location);
+
 
 		Locations.getInRadius(location, function() {
-			console.log(location);
-
 			// check whether locations found
 			if (Locations.locations.length) {
 				console.log(address);
