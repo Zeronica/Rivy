@@ -26,6 +26,7 @@ app.run(function($transform , $state, $rootScope, $location, $window, Authentica
   $rootScope.$on("$stateChangeStart", function(event, next) {
     console.log(AuthenticationFactory.isLogged);
     if ((next.access && next.access.requiredLogin) && !AuthenticationFactory.isLogged) {
+    	alert("lol");
       $location.path('/login');
     } else {
       // check if user object exists else fetch it. This is incase of a page refresh
