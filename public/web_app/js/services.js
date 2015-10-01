@@ -1,6 +1,7 @@
 var module = angular.module('myApp.services', [])
 
-var url = 'http://localhost:3000';
+var url = 'http://rivy.herokuapp.com';
+// var url = 'http://localhost:5000';
 
 module.factory('Locations', ['$location', '$http', 'UserAuthFactory', function($location, $http, UserAuthFactory) {
 	var o = {
