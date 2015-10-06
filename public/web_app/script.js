@@ -24,18 +24,23 @@ app.run(function($transform , $state, $rootScope, $location, $window, Authentica
   AuthenticationFactory.check();
  
   $rootScope.$on("$stateChangeStart", function(event, next) {
-  	console.log(next);
-    console.log(AuthenticationFactory.isLogged);
+  	console.log(next.name);
+  	console.log(AuthenticationFactory.isLogged);
     if ((next.requiredLogin) && !AuthenticationFactory.isLogged) {
 		event.preventDefault();
 		alert("Please login first to access this feature.");
 		$state.go('login');
+    } else if(next.name === "login" && AuthenticationFactory.isLogged) {
+    	event.preventDefault();
+    	$state.go('home');
     } else {
       // check if user object exists else fetch it. This is incase of a page refresh
       if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
       if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
     }
   });
+
+
 });
 
 app.config(function($stateProvider, $urlRouterProvider,uiGmapGoogleMapApiProvider ,$httpProvider) {
