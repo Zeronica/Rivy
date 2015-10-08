@@ -1,4 +1,9 @@
-try it on virtual device
+google places search bar wont work on touch devices. use ng-messages for google places
+autosuggestions (Nick), test it out on using google chrome console.
 
-test all routes through emulator and heroku enviroment
+google maps markers need to drop down (Shubham)
+
+make sure appropriate error messages are logged in via popup window.
+	when wrong username password combo, two popup windows happening. (Tony)
+	use ng-messages for error 
 
